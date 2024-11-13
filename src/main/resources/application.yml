@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: board
+  profiles:
+    active: dev
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show_sql: true
