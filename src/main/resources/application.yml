@@ -8,3 +8,10 @@ spring:
     hibernate:
       ddl-auto: create
     show_sql: true
+
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true

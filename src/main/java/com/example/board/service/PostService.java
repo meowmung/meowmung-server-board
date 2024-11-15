@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 public class PostService {
     private final PostRepository postRepository;
 
-    public Post savePost(PostRequest postRequest) {
-        Post post = new Post();
-        post.setTitle(postRequest.title());
-        post.setContent(postRequest.content());
+    public Post savePost(String board, PostRequest postRequest) {
+        Post post = postRequest.toEntity(board);
         return postRepository.save(post);
     }
 }
