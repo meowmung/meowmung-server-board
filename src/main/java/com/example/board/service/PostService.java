@@ -1,5 +1,6 @@
 package com.example.board.service;
 
+import com.example.board.dto.request.PostEditRequest;
 import com.example.board.dto.request.PostRequest;
 import com.example.board.entity.Post;
 import com.example.board.repostiory.PostRepository;
@@ -34,5 +35,11 @@ public class PostService {
 
     public boolean existDeletePost(Long id) {
         return postRepository.existsById(id);
+    }
+
+    public Post updatePost(Long id, PostEditRequest postEditRequest) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        post.update(postEditRequest.title(), postEditRequest.content());
+        return postRepository.save(post);
     }
 }

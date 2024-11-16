@@ -12,4 +12,5 @@ public record PostRequest(String title, String content) {
                 .boardCategory(BoardCategory.valueOf(board.toUpperCase()))
                 .build();
     }
+
 }

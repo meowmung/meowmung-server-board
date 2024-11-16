@@ -51,6 +51,11 @@ public class Post {
     @Column(name = "view_count")
     public Integer viewCount = 0;
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
