@@ -19,26 +19,22 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Post findByPostId(Long id) {
-        Optional<Post> opt = postRepository.findByPostId(id);
+    public Post findByPostId(Long postId) {
+        Optional<Post> opt = postRepository.findByPostId(postId);
         return opt.orElseGet(() -> opt
                 .orElseThrow(() -> new RuntimeException("Post not found")));
     }
 
     @Transactional
-    public int deletePost(Long id) {
-        if (!existDeletePost(id)) {
-            throw new RuntimeException("해당 게시물은 존재하지 않습니다.");
-        }
-        return postRepository.deleteByPostId(id);
+    public void deletePost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("해당 게시물은 존재하지 않습니다."));
+        postRepository.delete(post);
     }
 
-    public boolean existDeletePost(Long id) {
-        return postRepository.existsById(id);
-    }
-
-    public Post updatePost(Long id, PostEditRequest postEditRequest) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+    public Post updatePost(Long postId, PostEditRequest postEditRequest) {
+        // 함수 가져다 쓰는걸로 변경
+        Post post = findByPostId(postId);
         post.update(postEditRequest.title(), postEditRequest.content());
         return postRepository.save(post);
     }

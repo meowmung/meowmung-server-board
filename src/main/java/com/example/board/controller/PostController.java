@@ -29,27 +29,21 @@ public class PostController {
         return ResponseEntity.ok(savedPost);
     }
 
-    @GetMapping("/{id}")
-    public Post getPost(@PathVariable(name = "id") Long id) {
-        return postService.findByPostId(id);
+    @GetMapping("/{postid}")
+    public Post getPost(@PathVariable(name = "postid") Long postId) {
+        return postService.findByPostId(postId);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePost(@PathVariable(name = "id") Long id) {
-        postService.deletePost(id);
+    @DeleteMapping("/{postid}")
+    public ResponseEntity<String> deletePost(@PathVariable(name = "postid") Long postId) {
+        postService.deletePost(postId);
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 
-    /*
-        1. 수정할 게시글 id, 수정할 내용 받기
-        2. 받은 id 게시글 찾기
-        3. 기존 내용을 -> 받은 내용으로 수정
-    */
-    @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable(name = "id") Long id, @RequestBody PostEditRequest postEditRequest) {
-        Post updatedPost = postService.updatePost(id, postEditRequest);
+    @PutMapping("/{postid}")
+    public ResponseEntity<Post> updatePost(@PathVariable(name = "postid") Long postId, @RequestBody PostEditRequest postEditRequest) {
+        Post updatedPost = postService.updatePost(postId, postEditRequest);
         return ResponseEntity.ok(updatedPost);
     }
-
 
 }
