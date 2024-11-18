@@ -26,23 +26,23 @@ public class PostController {
     public ResponseEntity<PostResponse> addPost(@PathVariable(name = "boardCategory") String board,
                                                 @RequestBody PostRequest postRequest) {
         PostResponse savedPost = postService.savePost(board, postRequest);
-        System.out.println(savedPost.toString());
         return ResponseEntity.ok(savedPost);
     }
 
     @GetMapping("/{postid}")
-    public Post getPost(@PathVariable(name = "postid") Long postId) {
+    public Post getPost (@PathVariable(name = "postid") Long postId) {
+        postService.incrementViewCount(postId);
         return postService.findByPostId(postId);
     }
 
     @DeleteMapping("/{postid}")
-    public ResponseEntity<String> deletePost(@PathVariable(name = "postid") Long postId) {
+    public ResponseEntity<String> deletePost (@PathVariable(name = "postid") Long postId) {
         postService.deletePost(postId);
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 
     @PutMapping("/{postid}")
-    public ResponseEntity<Post> updatePost(@PathVariable(name = "postid") Long postId, @RequestBody PostEditRequest postEditRequest) {
+    public ResponseEntity<Post> updatePost (@PathVariable(name = "postid") Long postId, @RequestBody PostEditRequest postEditRequest) {
         Post updatedPost = postService.updatePost(postId, postEditRequest);
         return ResponseEntity.ok(updatedPost);
     }

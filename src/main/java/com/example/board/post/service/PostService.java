@@ -43,6 +43,12 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    public void incrementViewCount(Long postId) {
+        Post post = findByPostId(postId);
+        post.setViewCount(post.getViewCount() + 1);
+        postRepository.save(post);
+    }
+
     // 신고 횟수 확인 하고 5가 되면 게시글 삭제
     @Transactional
     public void checkAndDeletePost(Long postId) {
