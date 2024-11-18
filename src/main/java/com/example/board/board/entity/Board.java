@@ -1,4 +1,4 @@
-package com.example.board.entity;
+package com.example.board.board.entity;
 
 import com.example.board.common.BoardCategory;
 import jakarta.persistence.Column;
