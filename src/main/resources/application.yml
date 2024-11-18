@@ -6,12 +6,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show_sql: true
 
 springdoc:
-  default-consumes-media-type: application/json
-  default-produces-media-type: application/json
+#  default-consumes-media-type: application/json
+#  default-produces-media-type: application/json
   swagger-ui:
-    path: /swagger-ui.html
+    path: /swagger-ui/index.html
     disable-swagger-default-url: true
