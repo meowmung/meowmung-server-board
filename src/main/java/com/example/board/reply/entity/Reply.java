@@ -1,6 +1,7 @@
 package com.example.board.reply.entity;
 
 import com.example.board.comment.entity.Comment;
+import com.example.board.post.entity.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +44,10 @@ public class Reply {
     @JoinColumn(name = "comment_id", nullable = false)
     @JsonIgnore
     public Comment comment;
+
+    @ManyToOne
+    @JsonIgnore
+    public Post post;
 
     @Override
     public String toString() {

@@ -3,6 +3,7 @@ package com.example.board.post.entity;
 import com.example.board.common.BoardCategory;
 import com.example.board.comment.entity.Comment;
 import com.example.board.complain.entity.Complain;
+import com.example.board.reply.entity.Reply;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -63,12 +64,16 @@ public class Post {
 
     // 하나의 게시글은 여러개의 댓글을 가질 수 있다
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     public List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<Reply> reply = new ArrayList<>();
 
     // 하나의 게시글은 여러개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Complain> Complains = new ArrayList<>();
+    @JsonIgnore
+    public List<Complain> complains = new ArrayList<>();
 
     // 신고 횟수 관리
     @Column(name = "complain_count")
@@ -79,11 +84,18 @@ public class Post {
         if (this.complainCount == null) {
             this.complainCount = 0;
         }
+        if (this.viewCount == null) {
+            this.viewCount = 0;
+        }
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
     }
 
     public void setComplainCount(Integer complainCount) {

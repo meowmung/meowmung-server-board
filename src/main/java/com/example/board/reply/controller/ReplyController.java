@@ -26,7 +26,7 @@ public class ReplyController {
     }
 
     @DeleteMapping("/{replyId}")
-    public ResponseEntity<String> deleteComment(@PathVariable(name = "commentId") Long replyId) {
+    public ResponseEntity<String> deleteComment(@PathVariable(name = "replyId") Long replyId) {
         replyService.deleteReplyComment(replyId);
         return ResponseEntity.ok("답글이 삭제되었습니다.");
     }

@@ -48,11 +48,11 @@ public class Comment {
     // 외래키로 post_id 설정해주기
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
+    @JsonIgnore
     public Post post;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<Reply> Replies = new ArrayList<>();
+    public List<Reply> replies = new ArrayList<>();
 
     @Override
     public String toString() {
