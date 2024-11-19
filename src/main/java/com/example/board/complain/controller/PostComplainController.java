@@ -1,10 +1,13 @@
 package com.example.board.complain.controller;
 
 import com.example.board.complain.dto.request.PostComplainRequest;
+import com.example.board.complain.dto.response.CommentComplainResponse;
 import com.example.board.complain.dto.response.PostComplainResponse;
 import com.example.board.complain.service.PostComplainService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,5 +33,14 @@ public class PostComplainController {
                                                             @RequestBody PostComplainRequest postComplainRequest) {
         PostComplainResponse savedPostComplain = postComplainService.savePostComplain(postId, postComplainRequest);
         return ResponseEntity.ok(savedPostComplain);
+    }
+
+    /*
+        댓글아이디에 접수된 모든 신고 목록 조회
+    */
+    @GetMapping("/complain")
+    public ResponseEntity<List<PostComplainResponse>> getPostComplain(@PathVariable(name = "postId") Long postId) {
+        List<PostComplainResponse> complains = postComplainService.getAllPostComplain(postId);
+        return ResponseEntity.ok(complains);
     }
 }
