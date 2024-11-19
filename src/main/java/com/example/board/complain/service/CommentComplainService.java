@@ -33,14 +33,13 @@ public class CommentComplainService {
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + commentId));
     }
 
-
-
-//     신고 횟수 증가
-//     신고 테이블에서 신고 횟수를 가지고 있는 경우
-//    public void incrementPostComplainCount(PostComplain postComplain) {
-//        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
-//        postComplainRepository.save(postComplain);
-//    }
+    public List<CommentComplainResponse> getAllCommentComplain(Long commentId) {
+        Comment comment = findByCommentId(commentId);
+        List<CommentComplain> getComplains = comment.getCommentComplains();
+        return getComplains.stream()
+                .map(CommentComplainResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
 
     // 게시글에서 신고 횟수를 가지고 있는 경우
     public void incrementCommentComplainCount(Long commentId) {
@@ -48,5 +47,12 @@ public class CommentComplainService {
         comment.setCommentComplainCount(comment.getCommentComplainCount() + 1);
         commentRepository.save(comment);
     }
+
+//     신고 횟수 증가
+//     신고 테이블에서 신고 횟수를 가지고 있는 경우
+//    public void incrementPostComplainCount(PostComplain postComplain) {
+//        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
+//        postComplainRepository.save(postComplain);
+//    }
 
 }

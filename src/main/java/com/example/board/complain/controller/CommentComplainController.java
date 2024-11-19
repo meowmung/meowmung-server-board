@@ -25,4 +25,10 @@ public class CommentComplainController {
         CommentComplainResponse savedCommentComplain = commentComplainService.saveCommentComplain(commentId, commentComplainRequest);
         return ResponseEntity.ok(savedCommentComplain);
     }
+
+    @GetMapping("/complain")
+    public ResponseEntity<List<CommentComplainResponse>> getCommentComplain(@PathVariable(name = "commentId") Long commentId) {
+        List<CommentComplainResponse> complains = commentComplainService.getAllCommentComplain(commentId);
+        return ResponseEntity.ok(complains);
+    }
 }
