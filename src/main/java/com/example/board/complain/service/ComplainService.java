@@ -4,7 +4,6 @@ import com.example.board.complain.dto.request.ComplainRequest;
 import com.example.board.complain.dto.response.ComplainResponse;
 import com.example.board.complain.entity.Complain;
 import com.example.board.post.entity.Post;
-import com.example.board.complain.mapper.ComplainMapper;
 import com.example.board.post.service.PostService;
 import com.example.board.complain.repository.ComplainRepository;
 import com.example.board.post.repository.PostRepository;
@@ -17,16 +16,14 @@ public class ComplainService {
     private final ComplainRepository complainRepository;
     private final PostRepository postRepository;
     private final PostService postService;
-    private final ComplainMapper complainMapper;
 
     public ComplainResponse saveComplain(Long postId, ComplainRequest complainRequest) {
         Complain complain = complainRequest.toEntity(findByPostId(postId));
         complainRepository.save(complain);
         incrementComplainCount(complain);
         incrementPostComplainCount(postId);
-
         postService.checkAndDeletePost(postId);
-        return complainMapper.toResponse(complain);
+        return ComplainResponse.fromEntity(complain);
     }
 
     public Post findByPostId(Long postId) {
