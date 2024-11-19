@@ -35,4 +35,15 @@ public class ReplyService {
         replyRepository.delete(reply);
     }
 
+    // 신고 횟수 확인 하고 5가 되면 대댓글 삭제
+    @Transactional
+    public void checkAndDeleteReply(Long replyId) {
+        Reply reply = replyRepository.findByReplyId(replyId)
+                .orElseThrow(() -> new RuntimeException("해당 대댓글은 존재하지 않습니다."));
+
+        if (reply.getReplyComplainCount() >= 5) {
+            replyRepository.delete(reply);
+        }
+    }
+
 }

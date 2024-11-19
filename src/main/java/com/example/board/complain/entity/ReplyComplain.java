@@ -1,6 +1,8 @@
 package com.example.board.complain.entity;
 
+import com.example.board.comment.entity.Comment;
 import com.example.board.post.entity.Post;
+import com.example.board.reply.entity.Reply;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,16 +36,20 @@ public class ReplyComplain {
     @Column(name = "reply_complain_content", nullable = false)
     public String replyComplainContent;
 
-    @Column(name = "reply_complain_count")
-    public Integer replyComplainCount = 0;
-
     @Column(name = "created_at")
     @CreationTimestamp
     public Date createdAt;
 
+    @Column(name = "reply_complain_count")
+    public Integer replyComplainCount = 0;
+
+//    @ManyToOne
+//    @JoinColumn(name = "post_id", nullable = false)
+//    public Post post;
+
     @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    public Post post;
+    @JoinColumn(name = "reply_id", nullable = false)
+    public Reply reply;
 
     @PrePersist
     public void prePersist() {

@@ -7,17 +7,25 @@ public record ReplyResponse(
         Long replyId,
         String replyContent,
         Date createdAt,
+
+        // 대댓글 신고 횟수
+        Integer ReplyComplainCount,
+
+        // 대댓글 상위 댓글
         Long commentId,
         String commentContent
 ) {
+
     public static ReplyResponse fromEntity(Reply reply) {
         return new ReplyResponse(
                 reply.getReplyId(),
                 reply.getReplyContent(),
                 reply.getCreatedAt(),
+
+                reply.getReplyComplainCount(),
+
                 reply.getComment().getCommentId(),
                 reply.getComment().getCommentContent()
-//                reply.getComment()
         );
     }
 }

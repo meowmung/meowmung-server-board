@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,6 +60,20 @@ public class Reply {
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     public List<ReplyComplain> replyComplains = new ArrayList<>();
+
+    @Column(name = "reply_complain_count")
+    public Integer replyComplainCount = 0;
+
+    public void setReplyComplainCount(Integer replyComplainCount) {
+        this.replyComplainCount = replyComplainCount;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.replyComplainCount == null) {
+            this.replyComplainCount = 0;
+        }
+    }
 
     @Override
     public String toString() {
