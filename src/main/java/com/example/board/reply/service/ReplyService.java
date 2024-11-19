@@ -16,8 +16,8 @@ public class ReplyService {
     private final CommentRepository commentRepository;
     private final ReplyRepository replyRepository;
 
-    public ReplyResponse saveCommentReply(Long commentId,
-                                          ReplyRequest replyRequest) {
+    public ReplyResponse saveReply(Long commentId,
+                                   ReplyRequest replyRequest) {
         Reply reply = replyRequest.toEntity(findByCommentId(commentId));
         replyRepository.save(reply);
         return ReplyResponse.fromEntity(reply);
@@ -25,11 +25,11 @@ public class ReplyService {
 
     public Comment findByCommentId(Long commentId) {
         return commentRepository.findByCommentId(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("Post not found with id: " + commentId));
+                .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + commentId));
     }
 
     @Transactional
-    public void deleteReplyComment(Long replyId) {
+    public void deleteReply(Long replyId) {
         Reply reply = replyRepository.findByReplyId(replyId)
                 .orElseThrow(() -> new RuntimeException("해당 답글은 존재하지 않습니다."));
         replyRepository.delete(reply);

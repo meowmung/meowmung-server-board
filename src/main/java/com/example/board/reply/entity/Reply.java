@@ -77,7 +77,7 @@ public class Reply {
 
     @Override
     public String toString() {
-        return "CommentReply{" +
+        return "Reply{" +
                 "replyId=" + replyId +
                 ", replyContent='" + replyContent + '\'' +
                 ", createdAt=" + createdAt +
