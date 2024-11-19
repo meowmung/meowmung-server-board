@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReplyComplainController {
     private final ReplyComplainService replyComplainService;
 
+    /*
+        대댓글 신고 생성
+    */
     @PostMapping("/complain")
     public ResponseEntity<ReplyComplainResponse> addReplyComplain(@PathVariable(name = "replyId") Long replyId,
                                                                     @RequestBody ReplyComplainRequest replyComplainRequest) {

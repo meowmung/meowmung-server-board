@@ -1,7 +1,6 @@
 package com.example.board.complain.controller;
 
 import com.example.board.complain.dto.request.PostComplainRequest;
-import com.example.board.complain.dto.response.CommentComplainResponse;
 import com.example.board.complain.dto.response.PostComplainResponse;
 import com.example.board.complain.service.PostComplainService;
 import java.util.List;
@@ -27,7 +26,9 @@ public class PostComplainController {
         4. 신고 횟수가 5가 되면 게시글을 삭제
     */
 
-    // 신고 사유 저장
+    /*
+        게시글 신고 생성
+    */
     @PostMapping("/complain")
     public ResponseEntity<PostComplainResponse> addPostComplain(@PathVariable(name = "postId") Long postId,
                                                             @RequestBody PostComplainRequest postComplainRequest) {
@@ -36,7 +37,7 @@ public class PostComplainController {
     }
 
     /*
-        댓글아이디에 접수된 모든 신고 목록 조회
+        게시글에 접수된 모든 신고 목록 조회
     */
     @GetMapping("/complain")
     public ResponseEntity<List<PostComplainResponse>> getPostComplain(@PathVariable(name = "postId") Long postId) {

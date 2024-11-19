@@ -1,10 +1,7 @@
 package com.example.board.complain.service;
 
-import com.example.board.comment.entity.Comment;
 import com.example.board.complain.dto.request.PostComplainRequest;
-import com.example.board.complain.dto.response.CommentComplainResponse;
 import com.example.board.complain.dto.response.PostComplainResponse;
-import com.example.board.complain.entity.CommentComplain;
 import com.example.board.complain.entity.PostComplain;
 import com.example.board.post.entity.Post;
 import com.example.board.post.service.PostService;
@@ -22,6 +19,9 @@ public class PostComplainService {
     private final PostRepository postRepository;
     private final PostService postService;
 
+    /*
+        게시글 신고 생성
+    */
     public PostComplainResponse savePostComplain(Long postId, PostComplainRequest postComplainRequest) {
         PostComplain postComplain = postComplainRequest.toEntity(findByPostId(postId));
         postComplainRepository.save(postComplain);
@@ -36,6 +36,9 @@ public class PostComplainService {
                 .orElseThrow(() -> new IllegalArgumentException("Post not found with id: " + postId));
     }
 
+    /*
+        특정 게시글에 대한 모든 신고 내역 가져오기
+    */
     public List<PostComplainResponse> getAllPostComplain(Long postId) {
         Post post = findByPostId(postId);
         List<PostComplain> getComplains = post.getPostComplains();
@@ -44,7 +47,9 @@ public class PostComplainService {
                 .collect(Collectors.toList());
     }
 
-    // 게시글에서 신고 횟수를 가지고 있는 경우
+    /*
+        신고 횟수 증가
+    */
     public void incrementPostComplainCount(Long postId) {
         Post post = findByPostId(postId);
         post.setPostComplainCount(post.getPostComplainCount() + 1);
@@ -52,7 +57,6 @@ public class PostComplainService {
     }
 
     // 신고 횟수 증가
-    // 신고 테이블에서 신고 횟수를 가지고 있는 경우
 //    public void incrementPostComplainCount(PostComplain postComplain) {
 //        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
 //        postComplainRepository.save(postComplain);

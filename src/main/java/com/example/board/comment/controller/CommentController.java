@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
     private final CommentService commentService;
 
-    /*
-        댓글 등록
-        1. 댓글을 등록할 postId 랑 commentRequest (댓글 내용) 필요
-    */
     @PostMapping
     public ResponseEntity<CommentResponse> addComment(@PathVariable(name = "postId") Long postId,
                                                       @RequestBody CommentRequest commentRequest) {
@@ -29,11 +25,6 @@ public class CommentController {
         return ResponseEntity.ok(savedComment);
     }
 
-    /*
-        댓글 삭제
-        1. url 의 commentId 받아서
-        2. service 의 삭제 메소드 호출
-    */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable(name = "commentId") Long commentId) {
         commentService.deleteComment(commentId);

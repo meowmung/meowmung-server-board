@@ -1,11 +1,7 @@
 package com.example.board.complain.service;
 
-import com.example.board.comment.entity.Comment;
-import com.example.board.complain.dto.request.CommentComplainRequest;
 import com.example.board.complain.dto.request.ReplyComplainRequest;
-import com.example.board.complain.dto.response.CommentComplainResponse;
 import com.example.board.complain.dto.response.ReplyComplainResponse;
-import com.example.board.complain.entity.CommentComplain;
 import com.example.board.complain.entity.ReplyComplain;
 import com.example.board.complain.repository.ReplyComplainRepository;
 import com.example.board.reply.entity.Reply;
@@ -23,6 +19,9 @@ public class ReplyComplainService {
     private final ReplyService replyService;
     private final ReplyRepository replyRepository;
 
+    /*
+        대댓글 신고 생성
+    */
     public ReplyComplainResponse saveReplyComplain(Long replyId, ReplyComplainRequest replyComplainRequest) {
         ReplyComplain replyComplain = replyComplainRequest.toEntity(findByReplyId(replyId));
         replyComplainRepository.save(replyComplain);
@@ -37,6 +36,9 @@ public class ReplyComplainService {
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + replyId));
     }
 
+    /*
+        특정 대댓글에 대한 모든 신고 내역 가져오기
+    */
     public List<ReplyComplainResponse> getAllReplyComplain(Long replyId) {
         Reply reply = findByReplyId(replyId);
         List<ReplyComplain> getComplains = reply.getReplyComplains();
@@ -45,7 +47,9 @@ public class ReplyComplainService {
                 .collect(Collectors.toList());
     }
 
-    // 게시글에서 신고 횟수를 가지고 있는 경우
+    /*
+        신고 횟수 증가
+    */
     public void incrementReplyComplainCount(Long replyId) {
         Reply reply = findByReplyId(replyId);
         reply.setReplyComplainCount(reply.getReplyComplainCount() + 1);
@@ -53,7 +57,6 @@ public class ReplyComplainService {
     }
 
 //     신고 횟수 증가
-//     신고 테이블에서 신고 횟수를 가지고 있는 경우
 //    public void incrementPostComplainCount(PostComplain postComplain) {
 //        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
 //        postComplainRepository.save(postComplain);
