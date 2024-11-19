@@ -8,6 +8,7 @@ public record ComplainResponse (
         String complainContent,
         Date createdAt,
         Long postId,
+        String title,
         String content
 ) {
     public static ComplainResponse fromEntity(Complain complain) {
@@ -16,6 +17,7 @@ public record ComplainResponse (
                 complain.getComplainContent(),
                 complain.getCreatedAt(),
                 complain.getPost().getPostId(),
+                complain.getPost().getTitle(),
                 complain.getPost().getContent()
         );
     }
