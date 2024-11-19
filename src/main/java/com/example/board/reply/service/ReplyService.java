@@ -4,7 +4,6 @@ import com.example.board.reply.dto.request.ReplyRequest;
 import com.example.board.reply.dto.response.ReplyResponse;
 import com.example.board.comment.entity.Comment;
 import com.example.board.reply.entity.Reply;
-import com.example.board.reply.mapper.ReplyMapper;
 import com.example.board.reply.repository.ReplyRepository;
 import com.example.board.comment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReplyService {
     private final CommentRepository commentRepository;
     private final ReplyRepository replyRepository;
-    private final ReplyMapper replyMapper;
 
     public ReplyResponse saveCommentReply(Long commentId,
                                           ReplyRequest replyRequest) {
         Reply reply = replyRequest.toEntity(findByCommentId(commentId));
         replyRepository.save(reply);
-        return replyMapper.toResponse(reply);
+        return ReplyResponse.fromEntity(reply);
     }
 
     public Comment findByCommentId(Long commentId) {

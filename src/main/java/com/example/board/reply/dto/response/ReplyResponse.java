@@ -1,5 +1,6 @@
 package com.example.board.reply.dto.response;
 
+import com.example.board.reply.entity.Reply;
 import java.util.Date;
 
 public record ReplyResponse(
@@ -9,5 +10,14 @@ public record ReplyResponse(
         Long commentId,
         String commentContent
 ) {
-    // commentContent 까지 필요가 있을까
+    public static ReplyResponse fromEntity(Reply reply) {
+        return new ReplyResponse(
+                reply.getReplyId(),
+                reply.getReplyContent(),
+                reply.getCreatedAt(),
+                reply.getComment().getCommentId(),
+                reply.getComment().getCommentContent()
+//                reply.getComment()
+        );
+    }
 }
