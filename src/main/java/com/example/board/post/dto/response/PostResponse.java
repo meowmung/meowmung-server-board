@@ -12,7 +12,7 @@ public record PostResponse(
         Date createdAt,
         Date updatedAt,
         Integer viewCount,
-        Integer complainCount
+        Integer postComplainCount
 ) {
     public static PostResponse fromEntity(Post post) {
         return new PostResponse(
@@ -23,7 +23,7 @@ public record PostResponse(
                 post.getCreatedAt(),
                 post.getUpdatedAt(),
                 post.getViewCount(),
-                post.getComplainCount()
+                post.getPostComplainCount()
         );
     }
 }

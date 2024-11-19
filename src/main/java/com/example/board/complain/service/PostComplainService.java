@@ -17,10 +17,10 @@ public class PostComplainService {
     private final PostRepository postRepository;
     private final PostService postService;
 
-    public PostComplainResponse saveComplain(Long postId, PostComplainRequest postComplainRequest) {
+    public PostComplainResponse savePostComplain(Long postId, PostComplainRequest postComplainRequest) {
         PostComplain postComplain = postComplainRequest.toEntity(findByPostId(postId));
         postComplainRepository.save(postComplain);
-        incrementComplainCount(postComplain);
+//        incrementComplainCount(postComplain);
         incrementPostComplainCount(postId);
         postService.checkAndDeletePost(postId);
         return PostComplainResponse.fromEntity(postComplain);
@@ -33,15 +33,15 @@ public class PostComplainService {
 
     // 신고 횟수 증가
     // 신고 테이블에서 신고 횟수를 가지고 있는 경우
-    public void incrementComplainCount(PostComplain postComplain) {
-        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
-        postComplainRepository.save(postComplain);
-    }
+//    public void incrementPostComplainCount(PostComplain postComplain) {
+//        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
+//        postComplainRepository.save(postComplain);
+//    }
 
     // 게시글에서 신고 횟수를 가지고 있는 경우
     public void incrementPostComplainCount(Long postId) {
         Post post = findByPostId(postId);
-        post.setPostComplains(post.getPostComplainCount() + 1);
+        post.setPostComplainCount(post.getPostComplainCount() + 1);
         postRepository.save(post);
     }
 

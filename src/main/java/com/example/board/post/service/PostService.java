@@ -54,7 +54,7 @@ public class PostService {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new RuntimeException("해당 게시물은 존재하지 않습니다."));
 
-        if (post.getComplainCount() >= 5) {
+        if (post.getPostComplainCount() >= 5) {
             postRepository.delete(post);
         }
     }

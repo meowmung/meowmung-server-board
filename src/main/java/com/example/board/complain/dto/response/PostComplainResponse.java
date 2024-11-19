@@ -4,8 +4,8 @@ import com.example.board.complain.entity.PostComplain;
 import java.util.Date;
 
 public record PostComplainResponse(
-        Long complainId,
-        String complainContent,
+        Long postComplainId,
+        String postComplainContent,
         Date createdAt,
         Long postId,
         String title,
@@ -13,8 +13,8 @@ public record PostComplainResponse(
 ) {
     public static PostComplainResponse fromEntity(PostComplain postComplain) {
         return new PostComplainResponse(
-                postComplain.getComplainId(),
-                postComplain.getComplainContent(),
+                postComplain.getPostComplainId(),
+                postComplain.getPostComplainContent(),
                 postComplain.getCreatedAt(),
                 postComplain.getPost().getPostId(),
                 postComplain.getPost().getTitle(),

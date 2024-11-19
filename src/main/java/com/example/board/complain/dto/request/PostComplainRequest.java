@@ -4,11 +4,11 @@ import com.example.board.complain.entity.PostComplain;
 import com.example.board.post.entity.Post;
 
 public record PostComplainRequest(
-        String complainContent
+        String postComplainContent
 ) {
     public PostComplain toEntity(Post post){
         return PostComplain.builder()
-                .complainContent(complainContent)
+                .postComplainContent(postComplainContent)
                 .post(post)
                 .build();
     }

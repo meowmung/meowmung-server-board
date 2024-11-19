@@ -26,9 +26,9 @@ public class PostComplainController {
 
     // 신고 사유 저장
     @PostMapping("/complain")
-    public ResponseEntity<PostComplainResponse> addComplain(@PathVariable(name = "postId") Long postId,
+    public ResponseEntity<PostComplainResponse> addPostComplain(@PathVariable(name = "postId") Long postId,
                                                             @RequestBody PostComplainRequest postComplainRequest) {
-        PostComplainResponse savedComplain = postComplainService.saveComplain(postId, postComplainRequest);
-        return ResponseEntity.ok(savedComplain);
+        PostComplainResponse savedPostComplain = postComplainService.savePostComplain(postId, postComplainRequest);
+        return ResponseEntity.ok(savedPostComplain);
     }
 }

@@ -62,6 +62,15 @@ public class Post {
     @Column(name = "view_count")
     public Integer viewCount = 0;
 
+    // 신고 횟수 관리
+    @Column(name = "post_complain_count")
+    public Integer postComplainCount = 0;
+
+    // 하나의 게시글은 여러개의 신고를 가질 수 있다.
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<PostComplain> postComplains = new ArrayList<>();
+
     // 하나의 게시글은 여러개의 댓글을 가질 수 있다
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Comment> comments = new ArrayList<>();
@@ -70,14 +79,6 @@ public class Post {
     @JsonIgnore
     public List<Reply> reply = new ArrayList<>();
 
-    // 하나의 게시글은 여러개의 신고를 가질 수 있다.
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<PostComplain> postComplains = new ArrayList<>();
-
-    // 신고 횟수 관리
-    @Column(name = "post_complain_count")
-    public Integer postComplainCount = 0;
 
     @PrePersist
     public void prePersist() {
@@ -98,7 +99,7 @@ public class Post {
         this.viewCount = viewCount;
     }
 
-    public void setPostComplains(Integer postComplainCount) {
+    public void setPostComplainCount(Integer postComplainCount) {
         this.postComplainCount = postComplainCount;
     }
 
