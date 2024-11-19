@@ -1,29 +1,29 @@
 package com.example.board.complain.service;
 
-import com.example.board.complain.dto.request.ComplainRequest;
-import com.example.board.complain.dto.response.ComplainResponse;
-import com.example.board.complain.entity.Complain;
+import com.example.board.complain.dto.request.PostComplainRequest;
+import com.example.board.complain.dto.response.PostComplainResponse;
+import com.example.board.complain.entity.PostComplain;
 import com.example.board.post.entity.Post;
 import com.example.board.post.service.PostService;
-import com.example.board.complain.repository.ComplainRepository;
+import com.example.board.complain.repository.PostComplainRepository;
 import com.example.board.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ComplainService {
-    private final ComplainRepository complainRepository;
+public class PostComplainService {
+    private final PostComplainRepository postComplainRepository;
     private final PostRepository postRepository;
     private final PostService postService;
 
-    public ComplainResponse saveComplain(Long postId, ComplainRequest complainRequest) {
-        Complain complain = complainRequest.toEntity(findByPostId(postId));
-        complainRepository.save(complain);
-        incrementComplainCount(complain);
+    public PostComplainResponse saveComplain(Long postId, PostComplainRequest postComplainRequest) {
+        PostComplain postComplain = postComplainRequest.toEntity(findByPostId(postId));
+        postComplainRepository.save(postComplain);
+        incrementComplainCount(postComplain);
         incrementPostComplainCount(postId);
         postService.checkAndDeletePost(postId);
-        return ComplainResponse.fromEntity(complain);
+        return PostComplainResponse.fromEntity(postComplain);
     }
 
     public Post findByPostId(Long postId) {
@@ -33,9 +33,9 @@ public class ComplainService {
 
     // 신고 횟수 증가
     // 신고 테이블에서 신고 횟수를 가지고 있는 경우
-    public void incrementComplainCount(Complain complain) {
-        complain.setComplainCount(complain.getComplainCount() + 1);
-        complainRepository.save(complain);
+    public void incrementComplainCount(PostComplain postComplain) {
+        postComplain.setComplainCount(postComplain.getComplainCount() + 1);
+        postComplainRepository.save(postComplain);
     }
 
     // 게시글에서 신고 횟수를 가지고 있는 경우

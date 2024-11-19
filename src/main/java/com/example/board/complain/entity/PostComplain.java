@@ -23,7 +23,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Complain {
+public class PostComplain {
     @Id
     @Column(name = "complain_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,10 +50,6 @@ public class Complain {
         if (this.complainCount == null) {
             this.complainCount = 0;
         }
-    }
-
-    public void manageComplainCount(Integer complainCount) {
-        this.complainCount += complainCount;
     }
 
     public void setComplainCount(Integer complainCount) {

@@ -2,7 +2,7 @@ package com.example.board.post.entity;
 
 import com.example.board.common.BoardCategory;
 import com.example.board.comment.entity.Comment;
-import com.example.board.complain.entity.Complain;
+import com.example.board.complain.entity.PostComplain;
 import com.example.board.reply.entity.Reply;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
@@ -73,7 +73,7 @@ public class Post {
     // 하나의 게시글은 여러개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    public List<Complain> complains = new ArrayList<>();
+    public List<PostComplain> postComplains = new ArrayList<>();
 
     // 신고 횟수 관리
     @Column(name = "complain_count")
