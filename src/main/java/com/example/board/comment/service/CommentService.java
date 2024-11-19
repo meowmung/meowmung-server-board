@@ -4,7 +4,6 @@ import com.example.board.comment.dto.request.CommentRequest;
 import com.example.board.comment.dto.response.CommentResponse;
 import com.example.board.comment.entity.Comment;
 import com.example.board.post.entity.Post;
-import com.example.board.comment.mapper.CommentMapper;
 import com.example.board.comment.repository.CommentRepository;
 import com.example.board.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
-    private final CommentMapper commentMapper;
 
     /*
         댓글 등록
@@ -26,7 +24,7 @@ public class CommentService {
     public CommentResponse saveComment(Long postId, CommentRequest commentRequest) {
         Comment comment = commentRequest.toEntity(findByPostId(postId));
         commentRepository.save(comment);
-        return commentMapper.toResponse(comment);
+        return CommentResponse.fromEntity(comment);
     }
 
     /*

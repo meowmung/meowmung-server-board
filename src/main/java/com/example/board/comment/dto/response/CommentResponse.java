@@ -11,10 +11,13 @@ public record CommentResponse(
         String content
 
 ) {
-    public Comment toEntity(Comment comment) {
-        return Comment.builder()
-                .
-
+    public static CommentResponse fromEntity(Comment comment) {
+        return new CommentResponse(
+                comment.getCommentId(),
+                comment.getCommentContent(),
+                comment.getCreatedAt(),
+                comment.getPost().getPostId(),
+                comment.getPost().getContent()
+        );
     }
-
 }

@@ -19,7 +19,7 @@ public class PostService {
     public PostResponse savePost(String board, PostRequest postRequest) {
         Post post = postRequest.toEntity(board);
         postRepository.save(post);
-        return PostResponse.fromEntity(postRepository.save(post));
+        return PostResponse.fromEntity(post);
     }
 
     public Post findByPostId(Long postId) {
