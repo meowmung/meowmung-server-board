@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +47,13 @@ public class Comment {
     @CreationTimestamp
     public Date createdAt;
 
+    @Column(name = "comment_complain_count")
+    public Integer commentComplainCount = 0;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<CommentComplain> commentComplains = new ArrayList<>();
+
     // 게시글과의 연관 관계
     // 외래키로 post_id 설정해주기
     @ManyToOne
@@ -56,9 +64,16 @@ public class Comment {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Reply> replies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<CommentComplain> commentComplains = new ArrayList<>();
+    @PrePersist
+    public void prePersist() {
+        if (this.commentComplainCount == null) {
+            this.commentComplainCount = 0;
+        }
+    }
+
+    public void setCommentComplainCount(Integer commentComplainCount) {
+        this.commentComplainCount = commentComplainCount;
+    }
 
     @Override
     public String toString() {

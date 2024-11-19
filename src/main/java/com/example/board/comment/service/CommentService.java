@@ -16,35 +16,33 @@ public class CommentService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
-    /*
-        댓글 등록
-        1. commentRequest 를 담은 comment 만들어서
-        2. 저장
-    */
     public CommentResponse saveComment(Long postId, CommentRequest commentRequest) {
         Comment comment = commentRequest.toEntity(findByPostId(postId));
         commentRepository.save(comment);
         return CommentResponse.fromEntity(comment);
     }
 
-    /*
-        postId 로 게시글 찾기
-    */
     public Post findByPostId(Long postId) {
         return postRepository.findByPostId(postId)
                 .orElseThrow(() -> new IllegalArgumentException("Post not found with id: " + postId));
     }
 
-    /*
-        댓글 삭제
-        1. commentId 에 해당하는 댓글 찾아서
-        2. 삭제
-    */
     @Transactional
     public void deleteComment(Long commentId) {
         Comment comment = commentRepository.findByCommentId(commentId)
                 .orElseThrow(() -> new RuntimeException("해당 댓글은 존재하지 않습니다."));
         commentRepository.delete(comment);
+    }
+
+    // 신고 횟수 확인 하고 5가 되면 댓글 삭제
+    @Transactional
+    public void checkAndDeletePost(Long commentId) {
+        Comment comment = commentRepository.findByCommentId(commentId)
+                .orElseThrow(() -> new RuntimeException("해당 댓글은 존재하지 않습니다."));
+
+        if (comment.getCommentComplainCount() >= 5) {
+            commentRepository.delete(comment);
+        }
     }
 
 }
