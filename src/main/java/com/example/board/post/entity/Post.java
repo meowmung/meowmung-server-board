@@ -76,13 +76,13 @@ public class Post {
     public List<PostComplain> postComplains = new ArrayList<>();
 
     // 신고 횟수 관리
-    @Column(name = "complain_count")
-    public Integer complainCount = 0;
+    @Column(name = "post_complain_count")
+    public Integer postComplainCount = 0;
 
     @PrePersist
     public void prePersist() {
-        if (this.complainCount == null) {
-            this.complainCount = 0;
+        if (this.postComplainCount == null) {
+            this.postComplainCount = 0;
         }
         if (this.viewCount == null) {
             this.viewCount = 0;
@@ -98,8 +98,8 @@ public class Post {
         this.viewCount = viewCount;
     }
 
-    public void setComplainCount(Integer complainCount) {
-        this.complainCount = complainCount;
+    public void setPostComplains(Integer postComplainCount) {
+        this.postComplainCount = postComplainCount;
     }
 
     @Override

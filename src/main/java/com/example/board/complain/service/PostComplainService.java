@@ -34,14 +34,14 @@ public class PostComplainService {
     // 신고 횟수 증가
     // 신고 테이블에서 신고 횟수를 가지고 있는 경우
     public void incrementComplainCount(PostComplain postComplain) {
-        postComplain.setComplainCount(postComplain.getComplainCount() + 1);
+        postComplain.setPostComplainCount(postComplain.getPostComplainCount() + 1);
         postComplainRepository.save(postComplain);
     }
 
     // 게시글에서 신고 횟수를 가지고 있는 경우
     public void incrementPostComplainCount(Long postId) {
         Post post = findByPostId(postId);
-        post.setComplainCount(post.getComplainCount() + 1);
+        post.setPostComplains(post.getPostComplainCount() + 1);
         postRepository.save(post);
     }
 

@@ -18,24 +18,24 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "complain")
+@Table(name = "post_complain")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostComplain {
     @Id
-    @Column(name = "complain_id")
+    @Column(name = "post_complain_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long complainId;
+    public Long postComplainId;
 
 //    public Member reporter;
 
-    @Column(name = "complain_content", nullable = false)
-    public String complainContent;
+    @Column(name = "post_complain_content", nullable = false)
+    public String postComplainContent;
 
-    @Column(name = "complain_count")
-    public Integer complainCount = 0;
+    @Column(name = "post_complain_count")
+    public Integer postComplainCount = 0;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -47,13 +47,13 @@ public class PostComplain {
 
     @PrePersist
     public void prePersist() {
-        if (this.complainCount == null) {
-            this.complainCount = 0;
+        if (this.postComplainCount == null) {
+            this.postComplainCount = 0;
         }
     }
 
-    public void setComplainCount(Integer complainCount) {
-        this.complainCount = complainCount;
+    public void setPostComplainCount(Integer postComplainCount) {
+        this.postComplainCount = postComplainCount;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.board.comment.entity;
 
+import com.example.board.complain.entity.CommentComplain;
+import com.example.board.complain.entity.PostComplain;
 import com.example.board.reply.entity.Reply;
 import com.example.board.post.entity.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,6 +55,10 @@ public class Comment {
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Reply> replies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<CommentComplain> commentComplains = new ArrayList<>();
 
     @Override
     public String toString() {
