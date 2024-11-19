@@ -11,6 +11,8 @@ import com.example.board.complain.repository.ReplyComplainRepository;
 import com.example.board.reply.entity.Reply;
 import com.example.board.reply.repository.ReplyRepository;
 import com.example.board.reply.service.ReplyService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,14 @@ public class ReplyComplainService {
     public Reply findByReplyId(Long replyId) {
         return replyRepository.findByReplyId(replyId)
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + replyId));
+    }
+
+    public List<ReplyComplainResponse> getAllReplyComplain(Long replyId) {
+        Reply reply = findByReplyId(replyId);
+        List<ReplyComplain> getComplains = reply.getReplyComplains();
+        return getComplains.stream()
+                .map(ReplyComplainResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     // 게시글에서 신고 횟수를 가지고 있는 경우
