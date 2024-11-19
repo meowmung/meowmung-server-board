@@ -1,5 +1,6 @@
 package com.example.board.comment.dto.response;
 
+import com.example.board.comment.entity.Comment;
 import java.util.Date;
 
 public record CommentResponse(
@@ -9,7 +10,11 @@ public record CommentResponse(
         Long postId,
         String content
 
-        // 게시글 제목, 내용까지 필요할까
 ) {
+    public Comment toEntity(Comment comment) {
+        return Comment.builder()
+                .
+
+    }
 
 }

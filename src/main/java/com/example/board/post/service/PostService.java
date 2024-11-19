@@ -4,7 +4,6 @@ import com.example.board.post.dto.request.PostEditRequest;
 import com.example.board.post.dto.request.PostRequest;
 import com.example.board.post.dto.response.PostResponse;
 import com.example.board.post.entity.Post;
-import com.example.board.post.mapper.PostMapper;
 import com.example.board.post.repository.PostRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final PostMapper postMapper;
+//    private final PostMapper postMapper;
 
     public PostResponse savePost(String board, PostRequest postRequest) {
         Post post = postRequest.toEntity(board);
         postRepository.save(post);
-        return postMapper.toResponse(post);
+        return PostResponse.fromEntity(postRepository.save(post));
     }
 
     public Post findByPostId(Long postId) {
