@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/{boardCategory}/{postId}/comments/{commentId}")
+@RequestMapping("boards/{boardCategory}/{postId}/comments/{commentId}")
 public class CommentComplainController {
     private final CommentComplainService commentComplainService;
 
-    /*
-        댓글 신고 생성
-    */
+    // 댓글 신고 생성
     @PostMapping("/complain")
     public ResponseEntity<CommentComplainResponse> addCommentComplain(@PathVariable(name = "commentId") Long commentId,
                                                                @RequestBody CommentComplainRequest commentComplainRequest) {
@@ -29,9 +27,7 @@ public class CommentComplainController {
         return ResponseEntity.ok(savedCommentComplain);
     }
 
-    /*
-        댓글아이디에 접수된 모든 신고 목록 조회
-    */
+    // 댓글아이디에 접수된 모든 신고 목록 조회
     @GetMapping("/complain")
     public ResponseEntity<List<CommentComplainResponse>> getCommentComplain(@PathVariable(name = "commentId") Long commentId) {
         List<CommentComplainResponse> complains = commentComplainService.getAllCommentComplain(commentId);

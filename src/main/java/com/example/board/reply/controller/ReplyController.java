@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/{boardCategory}/{postId}/comments/{commentId}/replies")
+@RequestMapping("boards/{boardCategory}/{postId}/comments/{commentId}/replies")
 @RequiredArgsConstructor
 public class ReplyController {
     private final ReplyService replyService;

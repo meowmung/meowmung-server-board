@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/{boardCategory}/{postId}")
+@RequestMapping("boards/{boardCategory}/{postId}")
 public class PostComplainController {
     private final PostComplainService postComplainService;
 
@@ -26,9 +26,7 @@ public class PostComplainController {
         4. 신고 횟수가 5가 되면 게시글을 삭제
     */
 
-    /*
-        게시글 신고 생성
-    */
+    // 게시글 신고 생성
     @PostMapping("/complain")
     public ResponseEntity<PostComplainResponse> addPostComplain(@PathVariable(name = "postId") Long postId,
                                                             @RequestBody PostComplainRequest postComplainRequest) {
@@ -36,9 +34,7 @@ public class PostComplainController {
         return ResponseEntity.ok(savedPostComplain);
     }
 
-    /*
-        게시글에 접수된 모든 신고 목록 조회
-    */
+    // 게시글에 접수된 모든 신고 목록 조회
     @GetMapping("/complain")
     public ResponseEntity<List<PostComplainResponse>> getPostComplain(@PathVariable(name = "postId") Long postId) {
         List<PostComplainResponse> complains = postComplainService.getAllPostComplain(postId);

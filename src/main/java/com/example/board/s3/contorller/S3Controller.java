@@ -1,6 +1,7 @@
 package com.example.board.s3.contorller;
 
 import com.example.board.s3.service.S3Service;
+import java.net.URL;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ public class S3Controller {
     @ResponseBody
     public String getPresignedUrl(@RequestParam String filename) {
         String presignedUrl = s3Service.createPresignedUrl("test/" + filename);
+        System.out.println(presignedUrl);
         return presignedUrl;
     }
 }

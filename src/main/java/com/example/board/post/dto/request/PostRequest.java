@@ -1,6 +1,6 @@
 package com.example.board.post.dto.request;
 
-import com.example.board.common.BoardCategory;
+import com.example.board.board.entity.Board;
 import com.example.board.post.entity.Post;
 
 public record PostRequest(
@@ -8,11 +8,12 @@ public record PostRequest(
         String content
 ) {
 
-    public Post toEntity(String board) {
+    public Post toEntity(Board board) {
         return Post.builder()
                 .title(title)
                 .content(content)
-                .boardCategory(BoardCategory.valueOf(board.toUpperCase()))
+//                .board((BoardCategory.fromString(boardCategory)))
+                .board(board)
                 .build();
     }
 

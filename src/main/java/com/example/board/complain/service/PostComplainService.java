@@ -19,9 +19,7 @@ public class PostComplainService {
     private final PostRepository postRepository;
     private final PostService postService;
 
-    /*
-        게시글 신고 생성
-    */
+    // 게시글 신고 생성
     public PostComplainResponse savePostComplain(Long postId, PostComplainRequest postComplainRequest) {
         PostComplain postComplain = postComplainRequest.toEntity(findByPostId(postId));
         postComplainRepository.save(postComplain);
@@ -36,9 +34,7 @@ public class PostComplainService {
                 .orElseThrow(() -> new IllegalArgumentException("Post not found with id: " + postId));
     }
 
-    /*
-        특정 게시글에 대한 모든 신고 내역 가져오기
-    */
+    // 특정 게시글에 대한 모든 신고 내역 가져오기
     public List<PostComplainResponse> getAllPostComplain(Long postId) {
         Post post = findByPostId(postId);
         List<PostComplain> getComplains = post.getPostComplains();
@@ -47,9 +43,7 @@ public class PostComplainService {
                 .collect(Collectors.toList());
     }
 
-    /*
-        신고 횟수 증가
-    */
+    // 신고 횟수 증가
     public void incrementPostComplainCount(Long postId) {
         Post post = findByPostId(postId);
         post.setPostComplainCount(post.getPostComplainCount() + 1);
