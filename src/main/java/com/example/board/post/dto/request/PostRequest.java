@@ -5,7 +5,8 @@ import com.example.board.post.entity.Post;
 
 public record PostRequest(
         String title,
-        String content) {
+        String content
+) {
 
     public Post toEntity(String board) {
         return Post.builder()
@@ -14,4 +15,5 @@ public record PostRequest(
                 .boardCategory(BoardCategory.valueOf(board.toUpperCase()))
                 .build();
     }
+
 }

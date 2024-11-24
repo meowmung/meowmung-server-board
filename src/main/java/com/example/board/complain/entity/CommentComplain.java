@@ -1,6 +1,6 @@
 package com.example.board.complain.entity;
 
-import com.example.board.post.entity.Post;
+import com.example.board.comment.entity.Comment;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,46 +18,42 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "complain")
+@Table(name = "comment_complain")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Complain {
+public class CommentComplain {
     @Id
-    @Column(name = "complain_id")
+    @Column(name = "comment_complain_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long complainId;
+    public Long CommentComplainId;
 
 //    public Member reporter;
 
-    @Column(name = "complain_content", nullable = false)
-    public String complainContent;
+    @Column(name = "comment_complain_content", nullable = false)
+    public String commentComplainContent;
 
-    @Column(name = "complain_count")
-    public Integer complainCount = 0;
+    @Column(name = "comment_complain_count")
+    public Integer commentComplainCount = 0;
 
     @Column(name = "created_at")
     @CreationTimestamp
     public Date createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    public Post post;
+    @JoinColumn(name = "comment_id", nullable = false)
+    public Comment comment;
 
     @PrePersist
     public void prePersist() {
-        if (this.complainCount == null) {
-            this.complainCount = 0;
+        if (this.commentComplainCount == null) {
+            this.commentComplainCount = 0;
         }
     }
 
-    public void manageComplainCount(Integer complainCount) {
-        this.complainCount += complainCount;
-    }
-
-    public void setComplainCount(Integer complainCount) {
-        this.complainCount = complainCount;
+    public void setCommentComplainCount(Integer commentComplainCount) {
+        this.commentComplainCount = commentComplainCount;
     }
 
 }

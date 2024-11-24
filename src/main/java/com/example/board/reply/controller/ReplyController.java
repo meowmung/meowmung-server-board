@@ -19,15 +19,15 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @PostMapping
-    public ResponseEntity<ReplyResponse> addCommentReply(@PathVariable(name = "commentId") Long commentId,
+    public ResponseEntity<ReplyResponse> addReply(@PathVariable(name = "commentId") Long commentId,
                                                          @RequestBody ReplyRequest replyRequest) {
-        ReplyResponse savedCommentReply = replyService.saveCommentReply(commentId, replyRequest);
-        return ResponseEntity.ok(savedCommentReply);
+        ReplyResponse savedReply = replyService.saveReply(commentId, replyRequest);
+        return ResponseEntity.ok(savedReply);
     }
 
     @DeleteMapping("/{replyId}")
-    public ResponseEntity<String> deleteComment(@PathVariable(name = "commentId") Long replyId) {
-        replyService.deleteReplyComment(replyId);
-        return ResponseEntity.ok("답글이 삭제되었습니다.");
+    public ResponseEntity<String> deleteReply(@PathVariable(name = "replyId") Long replyId) {
+        replyService.deleteReply(replyId);
+        return ResponseEntity.ok("대댓글이 삭제되었습니다.");
     }
 }

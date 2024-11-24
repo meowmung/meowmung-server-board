@@ -2,7 +2,8 @@ package com.example.board.post.entity;
 
 import com.example.board.common.BoardCategory;
 import com.example.board.comment.entity.Comment;
-import com.example.board.complain.entity.Complain;
+import com.example.board.complain.entity.PostComplain;
+import com.example.board.reply.entity.Reply;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -61,23 +62,31 @@ public class Post {
     @Column(name = "view_count")
     public Integer viewCount = 0;
 
-    // 하나의 게시글은 여러개의 댓글을 가질 수 있다
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<Comment> comments = new ArrayList<>();
+    // 신고 횟수 관리
+    @Column(name = "post_complain_count")
+    public Integer postComplainCount = 0;
 
     // 하나의 게시글은 여러개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Complain> Complains = new ArrayList<>();
+    @JsonIgnore
+    public List<PostComplain> postComplains = new ArrayList<>();
 
-    // 신고 횟수 관리
-    @Column(name = "complain_count")
-    public Integer complainCount = 0;
+    // 하나의 게시글은 여러개의 댓글을 가질 수 있다
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<Reply> reply = new ArrayList<>();
+
 
     @PrePersist
     public void prePersist() {
-        if (this.complainCount == null) {
-            this.complainCount = 0;
+        if (this.postComplainCount == null) {
+            this.postComplainCount = 0;
+        }
+        if (this.viewCount == null) {
+            this.viewCount = 0;
         }
     }
 
@@ -86,8 +95,12 @@ public class Post {
         this.content = content;
     }
 
-    public void setComplainCount(Integer complainCount) {
-        this.complainCount = complainCount;
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public void setPostComplainCount(Integer postComplainCount) {
+        this.postComplainCount = postComplainCount;
     }
 
     @Override

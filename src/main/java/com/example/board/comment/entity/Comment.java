@@ -1,5 +1,7 @@
 package com.example.board.comment.entity;
 
+import com.example.board.complain.entity.CommentComplain;
+import com.example.board.complain.entity.PostComplain;
 import com.example.board.reply.entity.Reply;
 import com.example.board.post.entity.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,15 +47,33 @@ public class Comment {
     @CreationTimestamp
     public Date createdAt;
 
+    @Column(name = "comment_complain_count")
+    public Integer commentComplainCount = 0;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<CommentComplain> commentComplains = new ArrayList<>();
+
     // 게시글과의 연관 관계
     // 외래키로 post_id 설정해주기
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
+    @JsonIgnore
     public Post post;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<Reply> Replies = new ArrayList<>();
+    public List<Reply> replies = new ArrayList<>();
+
+    @PrePersist
+    public void prePersist() {
+        if (this.commentComplainCount == null) {
+            this.commentComplainCount = 0;
+        }
+    }
+
+    public void setCommentComplainCount(Integer commentComplainCount) {
+        this.commentComplainCount = commentComplainCount;
+    }
 
     @Override
     public String toString() {

@@ -4,7 +4,6 @@ import com.example.board.post.dto.request.PostEditRequest;
 import com.example.board.post.dto.request.PostRequest;
 import com.example.board.post.dto.response.PostResponse;
 import com.example.board.post.entity.Post;
-import com.example.board.post.mapper.PostMapper;
 import com.example.board.post.repository.PostRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
-    private final PostMapper postMapper;
+//    private final PostMapper postMapper;
 
     public PostResponse savePost(String board, PostRequest postRequest) {
         Post post = postRequest.toEntity(board);
         postRepository.save(post);
-        return postMapper.toResponse(post);
+        return PostResponse.fromEntity(post);
     }
 
     public Post findByPostId(Long postId) {
@@ -43,13 +42,19 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    public void incrementViewCount(Long postId) {
+        Post post = findByPostId(postId);
+        post.setViewCount(post.getViewCount() + 1);
+        postRepository.save(post);
+    }
+
     // 신고 횟수 확인 하고 5가 되면 게시글 삭제
     @Transactional
     public void checkAndDeletePost(Long postId) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new RuntimeException("해당 게시물은 존재하지 않습니다."));
 
-        if (post.getComplainCount() >= 5) {
+        if (post.getPostComplainCount() >= 5) {
             postRepository.delete(post);
         }
     }
