@@ -35,7 +35,7 @@ public class CommentComplain {
     public String commentComplainContent;
 
     @Column(name = "comment_complain_count")
-    public Integer commentComplainCount = 0;
+    public int commentComplainCount = 0;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -45,14 +45,14 @@ public class CommentComplain {
     @JoinColumn(name = "comment_id", nullable = false)
     public Comment comment;
 
-    @PrePersist
-    public void prePersist() {
-        if (this.commentComplainCount == null) {
-            this.commentComplainCount = 0;
-        }
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        if (this.commentComplainCount == null) {
+//            this.commentComplainCount = 0;
+//        }
+//    }
 
-    public void setCommentComplainCount(Integer commentComplainCount) {
+    public void setCommentComplainCount(int commentComplainCount) {
         this.commentComplainCount = commentComplainCount;
     }
 

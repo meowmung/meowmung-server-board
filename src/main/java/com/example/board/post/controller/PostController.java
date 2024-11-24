@@ -13,19 +13,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/{boardCategory}")
+@RequestMapping("boards/{boardCategory}")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
 
+
+    // 현재 사용자 정체
+    @GetMapping("/hi")
+    public void hi(@PathVariable(name = "boardCategory") String boardCategory,
+                   @RequestHeader("X-Authorization-email") String email,
+                   @RequestHeader("X-Authorization-nickname") String nickname){
+        System.out.println(boardCategory);
+        System.out.println(email);
+        System.out.println(nickname);
+    }
+
     @PostMapping
-    public ResponseEntity<PostResponse> addPost(@PathVariable(name = "boardCategory") String board,
+    public ResponseEntity<PostResponse> addPost(@PathVariable(name = "boardCategory") String boardCategory,
                                                 @RequestBody PostRequest postRequest) {
-        PostResponse savedPost = postService.savePost(board, postRequest);
+        PostResponse savedPost = postService.savePost(boardCategory, postRequest);
         return ResponseEntity.ok(savedPost);
     }
 

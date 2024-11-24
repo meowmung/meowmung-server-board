@@ -41,7 +41,7 @@ public class ReplyComplain {
     public Date createdAt;
 
     @Column(name = "reply_complain_count")
-    public Integer replyComplainCount = 0;
+    public int replyComplainCount = 0;
 
 //    @ManyToOne
 //    @JoinColumn(name = "post_id", nullable = false)
@@ -51,14 +51,14 @@ public class ReplyComplain {
     @JoinColumn(name = "reply_id", nullable = false)
     public Reply reply;
 
-    @PrePersist
-    public void prePersist() {
-        if (this.replyComplainCount == null) {
-            this.replyComplainCount = 0;
-        }
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        if (this.replyComplainCount == null) {
+//            this.replyComplainCount = 0;
+//        }
+//    }
 
-    public void setreplyComplainCount(Integer replyComplainCount) {
+    public void setreplyComplainCount(int replyComplainCount) {
         this.replyComplainCount = replyComplainCount;
     }
 

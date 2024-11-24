@@ -1,6 +1,6 @@
 package com.example.board.post.entity;
 
-import com.example.board.common.BoardCategory;
+import com.example.board.board.entity.Board;
 import com.example.board.comment.entity.Comment;
 import com.example.board.complain.entity.PostComplain;
 import com.example.board.reply.entity.Reply;
@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -48,8 +48,8 @@ public class Post {
 //    @Column(name = "author", nullable = false)
 //    public String author;
 
-    @Enumerated(EnumType.STRING)
-    public BoardCategory boardCategory;
+//    @Enumerated(EnumType.STRING)
+//    public BoardCategory boardCategory;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -60,11 +60,11 @@ public class Post {
     public Date updatedAt;
 
     @Column(name = "view_count")
-    public Integer viewCount = 0;
+    public Integer viewCount;
 
     // 신고 횟수 관리
     @Column(name = "post_complain_count")
-    public Integer postComplainCount = 0;
+    public Integer postComplainCount;
 
     // 하나의 게시글은 여러개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -78,6 +78,11 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     public List<Reply> reply = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "board_id", nullable = false)
+    @JsonIgnore
+    public Board board;
 
 
     @PrePersist
@@ -103,16 +108,33 @@ public class Post {
         this.postComplainCount = postComplainCount;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Post{" +
+//                "postId=" + postId +
+//                ", title='" + title + '\'' +
+//                ", content='" + content + '\'' +
+//                ", createdAt=" + createdAt +
+//                ", updatedAt=" + updatedAt +
+//                ", viewCount=" + viewCount +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "Post{" +
-                "postId=" + postId +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", boardCategory=" + boardCategory +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
+                "board=" + board +
+                ", reply=" + reply +
+                ", comments=" + comments +
+                ", postComplains=" + postComplains +
+                ", postComplainCount=" + postComplainCount +
                 ", viewCount=" + viewCount +
+                ", updatedAt=" + updatedAt +
+                ", createdAt=" + createdAt +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", postId=" + postId +
                 '}';
     }
 }

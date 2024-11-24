@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>s3test</title>
+
+    <input type="file" onchange="getURL(this);">
+
+    <script>
+        async function getURL(e){
+            let file = e.files[0]
+            let name = encodeURIComponent(file.name)
+            let result = await fetch('/presigned-url?filename=' + name)
+            result = await result.text()
+
+            let 결과 = await fetch(result, {
+                method: 'PUT',
+                body: e.files[0]
+            })
+
+            console.log(결과.url.split("?")[0])
+            if (결과.ok) {
+                document.querySelector('img').src = 결과.url.split("?")[0]
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

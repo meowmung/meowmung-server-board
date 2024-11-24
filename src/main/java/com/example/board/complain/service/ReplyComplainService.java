@@ -19,9 +19,7 @@ public class ReplyComplainService {
     private final ReplyService replyService;
     private final ReplyRepository replyRepository;
 
-    /*
-        대댓글 신고 생성
-    */
+    // 대댓글 신고 생성
     public ReplyComplainResponse saveReplyComplain(Long replyId, ReplyComplainRequest replyComplainRequest) {
         ReplyComplain replyComplain = replyComplainRequest.toEntity(findByReplyId(replyId));
         replyComplainRepository.save(replyComplain);
@@ -36,9 +34,7 @@ public class ReplyComplainService {
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + replyId));
     }
 
-    /*
-        특정 대댓글에 대한 모든 신고 내역 가져오기
-    */
+    // 특정 대댓글에 대한 모든 신고 내역 가져오기
     public List<ReplyComplainResponse> getAllReplyComplain(Long replyId) {
         Reply reply = findByReplyId(replyId);
         List<ReplyComplain> getComplains = reply.getReplyComplains();
@@ -47,9 +43,7 @@ public class ReplyComplainService {
                 .collect(Collectors.toList());
     }
 
-    /*
-        신고 횟수 증가
-    */
+    // 신고 횟수 증가
     public void incrementReplyComplainCount(Long replyId) {
         Reply reply = findByReplyId(replyId);
         reply.setReplyComplainCount(reply.getReplyComplainCount() + 1);
