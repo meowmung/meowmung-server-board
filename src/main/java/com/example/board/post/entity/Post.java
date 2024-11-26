@@ -45,11 +45,8 @@ public class Post {
     @Column(name = "content", nullable = false)
     public String content;
 
-//    @Column(name = "author", nullable = false)
-//    public String author;
-
-//    @Enumerated(EnumType.STRING)
-//    public BoardCategory boardCategory;
+    @Column(name = "member_nickname")
+    public String nickname;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -61,7 +58,6 @@ public class Post {
 
     @Column(name = "view_count")
     public Integer viewCount;
-
     // 신고 횟수 관리
     @Column(name = "post_complain_count")
     public Integer postComplainCount;

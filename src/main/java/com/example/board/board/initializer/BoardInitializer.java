@@ -13,18 +13,12 @@ public class BoardInitializer {
 
     @PostConstruct
     public void init() {
-        // bordCategory 값에 free 존재하지 않으면 삽입
-        if (boardRepository.findByBoardCategory("free").isEmpty()) {
-            boardRepository.save(Board.builder()
-                    .boardCategory("free")
-                    .build());
+        // bordCategory 값이 존재하지 않으면 삽입
+        if (boardRepository.findById("free").isEmpty()) {
+            Board free = Board.builder().boardCategory("free").build();
         }
-
-        // bordCategory 값에 free 카테고리가 존재하지 않으면 삽입
-        if (boardRepository.findByBoardCategory("qna").isEmpty()) {
-            boardRepository.save(Board.builder()
-                    .boardCategory("qna")
-                    .build());
+        if (boardRepository.findById("qna").isEmpty()) {
+            Board qna = Board.builder().boardCategory("qna").build();
         }
     }
 }

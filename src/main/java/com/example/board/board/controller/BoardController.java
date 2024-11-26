@@ -22,8 +22,8 @@ public class BoardController {
     private final BoardRepository boardRepository;
 
     @GetMapping
-    public ResponseEntity<List<BoardResponse>> boardList(@PathVariable(name = "boardCategory") String boardCategory) {
-//        Board board = BoardCategory.valueOf(boardCategory);
+    public ResponseEntity<List<BoardResponse>> boardList(
+            @PathVariable(name = "boardCategory") String boardCategory) {
         List<BoardResponse> posts = boardService.findAllByBoardCategory(boardCategory);
         System.out.println(posts);
         return ResponseEntity.ok(posts);
@@ -32,9 +32,9 @@ public class BoardController {
     // 페이징
     @GetMapping("pages/{page}")
     public Page<Post> getPage(@PathVariable(name = "boardCategory") String boardCategory,
-                          @PathVariable(name = "page") int page) {
+                              @PathVariable(name = "page") int page) {
         // 1번부터 10번 게시글 가져오세요
-        Page<Post> result = boardRepository.findPageBy(PageRequest.of(page -1, 10));
+        Page<Post> result = boardRepository.findPageBy(PageRequest.of(page - 1, 10));
         return result;
     }
 
