@@ -62,23 +62,23 @@ public class Post {
     @Column(name = "post_complain_count")
     public Integer postComplainCount;
 
-    // 하나의 게시글은 여러개의 신고를 가질 수 있다.
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<PostComplain> postComplains = new ArrayList<>();
-
-    // 하나의 게시글은 여러개의 댓글을 가질 수 있다
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Comment> comments = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    public List<Reply> reply = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     @JsonIgnore
     public Board board;
+    // 하나의 게시글은 여러개의 신고를 가질 수 있다.
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    public List<PostComplain> postComplains = new ArrayList<>();
+
+    // 하나의 게시글은 여러개의 댓글을 가질 수 있다
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    public List<Comment> comments = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List<Reply> reply = new ArrayList<>();
 
 
     @PrePersist
@@ -103,19 +103,6 @@ public class Post {
     public void setPostComplainCount(Integer postComplainCount) {
         this.postComplainCount = postComplainCount;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Post{" +
-//                "postId=" + postId +
-//                ", title='" + title + '\'' +
-//                ", content='" + content + '\'' +
-//                ", createdAt=" + createdAt +
-//                ", updatedAt=" + updatedAt +
-//                ", viewCount=" + viewCount +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {

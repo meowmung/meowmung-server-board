@@ -38,8 +38,8 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long replyId;
 
-//    @Column(name = "reply_author")
-//    public Member replyAuthor;
+    @Column(name = "member_nickname")
+    public String nickname;
 
     @Column(name = "reply_content", nullable = false)
     public String replyContent;

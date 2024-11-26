@@ -41,7 +41,8 @@ public class Comment {
     @Column(name = "comment_content", nullable = false)
     public String commentContent;
 
-//    public Member commentAuthor;
+    @Column(name = "member_nickname")
+    public String nickname;
 
     @Column(name = "created_at")
     @CreationTimestamp

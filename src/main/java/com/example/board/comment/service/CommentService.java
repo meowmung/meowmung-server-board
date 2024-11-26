@@ -16,8 +16,8 @@ public class CommentService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
-    public CommentResponse saveComment(Long postId, CommentRequest commentRequest) {
-        Comment comment = commentRequest.toEntity(findByPostId(postId));
+    public CommentResponse saveComment(Long postId, CommentRequest commentRequest, String nickname) {
+        Comment comment = commentRequest.toEntity(findByPostId(postId), nickname);
         commentRepository.save(comment);
         return CommentResponse.fromEntity(comment);
     }

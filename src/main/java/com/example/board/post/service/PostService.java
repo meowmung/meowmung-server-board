@@ -20,11 +20,12 @@ public class PostService {
     private final BoardRepository boardRepository;
 
     // 게시글 저장
-    public PostResponse savePost(String boardCategory, PostRequest postRequest) {
-        Optional<Board> board = boardRepository.findByBoardCategory(boardCategory);
-        Post post = postRequest.toEntity(board.orElse(null));
-        postRepository.save(post);
-        return PostResponse.fromEntity(post);
+    public PostOneRequest savePost(String boardCategory, PostRequest postRequest, String nickname) {
+        Board board = boardRepository.findById(boardCategory)
+                .orElseThrow(()->new RuntimeException("그런 카테고리 없어요"));
+        Post post = postRequest.toEntity(board,nickname);
+        Post save = postRepository.save(post);
+        return PostOneRequest.fromEntity(save);
     }
 
     // postId 로 게시글 찾기
