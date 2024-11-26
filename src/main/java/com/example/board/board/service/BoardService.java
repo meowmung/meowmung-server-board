@@ -24,10 +24,8 @@ public class BoardService {
         List<Optional<Post>> allByBoard = postRepository.findAllByBoard(board);
         return Collections.singletonList(BoardResponse.fromEntity(boardCategory, allByBoard));
     }
-
-    public Page<Post> getPostsByPage(String boardCategory, int page) {
-
-    }
-
-
+//
+//    public Page<Post> getPostsByPage(String boardCategory, int page) {
+//
+//    }
 }

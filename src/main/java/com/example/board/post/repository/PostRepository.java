@@ -10,4 +10,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<Post> findByPostId(Long postId);
 //    int deleteByPostId(Long id);
     List<Optional<Post>> findAllByBoard(Board board);
+
+//    Optional<Post> findByPostIdAndBoardMat
 }

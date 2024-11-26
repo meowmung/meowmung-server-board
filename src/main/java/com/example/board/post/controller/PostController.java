@@ -1,6 +1,8 @@
 package com.example.board.post.controller;
 
+import com.example.board.board.entity.Board;
 import com.example.board.post.dto.request.PostEditRequest;
+import com.example.board.post.dto.request.PostOneRequest;
 import com.example.board.post.dto.request.PostRequest;
 import com.example.board.post.dto.response.PostResponse;
 import com.example.board.post.entity.Post;
@@ -40,15 +42,14 @@ public class PostController {
         PostResponse savedPost = postService.savePost(boardCategory, postRequest);
         return ResponseEntity.ok(savedPost);
     }
-
-    @GetMapping("/{postid}")
-    public Post getPost (@PathVariable(name = "postid") Long postId) {
-        postService.incrementViewCount(postId);
-        return postService.findByPostId(postId);
+    // 게시글 조회
+    @GetMapping("/{postId}")
+    public PostOneRequest getPost (@PathVariable(name = "postId") Long postId) {
+        return postService.getPost(postId);
     }
 
-    @DeleteMapping("/{postid}")
-    public ResponseEntity<String> deletePost (@PathVariable(name = "postid") Long postId) {
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<String> deletePost (@PathVariable(name = "postId") Long postId) {
         postService.deletePost(postId);
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }

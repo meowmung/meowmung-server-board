@@ -71,9 +71,9 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    public List<Reply> reply = new ArrayList<>();
+//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    public List<Reply> reply = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
@@ -121,7 +121,6 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "board=" + board +
-                ", reply=" + reply +
                 ", comments=" + comments +
                 ", postComplains=" + postComplains +
                 ", postComplainCount=" + postComplainCount +

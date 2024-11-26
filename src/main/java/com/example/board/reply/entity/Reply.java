@@ -53,9 +53,9 @@ public class Reply {
     @JsonIgnore
     public Comment comment;
 
-    @ManyToOne
-    @JsonIgnore
-    public Post post;
+//    @ManyToOne
+//    @JsonIgnore
+//    public Post post;
 
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

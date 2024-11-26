@@ -3,6 +3,7 @@ package com.example.board.post.service;
 import com.example.board.board.entity.Board;
 import com.example.board.board.repository.BoardRepository;
 import com.example.board.post.dto.request.PostEditRequest;
+import com.example.board.post.dto.request.PostOneRequest;
 import com.example.board.post.dto.request.PostRequest;
 import com.example.board.post.dto.response.PostResponse;
 import com.example.board.post.entity.Post;
@@ -27,10 +28,12 @@ public class PostService {
     }
 
     // postId 로 게시글 찾기
-    public Post findByPostId(Long postId) {
-        Optional<Post> opt = postRepository.findByPostId(postId);
-        return opt.orElseGet(() -> opt
-                .orElseThrow(() -> new RuntimeException("Post not found")));
+    public PostOneRequest getPost(Long postId) {
+//        Optional<Post> opt = postRepository.findByPostId(postId);
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new IllegalArgumentException("없는 게시물 입니다."));
+        this.incrementViewCount(post);
+        return PostOneRequest.fromEntity(post);
     }
 
     // 게시글 삭제
@@ -49,8 +52,7 @@ public class PostService {
     }
 
     // 조회수
-    public void incrementViewCount(Long postId) {
-        Post post = findByPostId(postId);
+    public void incrementViewCount(Post post) {
         post.setViewCount(post.getViewCount() + 1);
         postRepository.save(post);
     }
