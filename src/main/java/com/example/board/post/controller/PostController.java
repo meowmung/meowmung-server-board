@@ -55,10 +55,10 @@ public class PostController {
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 
-    @PutMapping("/{postid}")
-    public ResponseEntity<Post> updatePost(@PathVariable(name = "postid") Long postId,
-                                           @RequestBody PostEditRequest postEditRequest) {
-        Post updatedPost = postService.updatePost(postId, postEditRequest);
-        return ResponseEntity.ok(updatedPost);
-    }
+//    @PutMapping("/{postid}")
+//    public ResponseEntity<Post> updatePost(@PathVariable(name = "postid") Long postId,
+//                                           @RequestBody PostEditRequest postEditRequest) {
+//        Post updatedPost = postService.updatePost(postId, postEditRequest);
+//        return ResponseEntity.ok(updatedPost);
+//    }
 }
