@@ -23,7 +23,7 @@ public class CommentController {
     public ResponseEntity<CommentResponse> addComment(@PathVariable(name = "postId") Long postId,
                                                       @RequestBody CommentRequest commentRequest,
                                                       @RequestHeader("X-Authorization-nickname") String nickname) {
-        CommentResponse PostOneRequest = commentService.saveComment(postId, commentRequest, nickname);
+        CommentResponse savedComment = commentService.saveComment(postId, commentRequest, nickname);
         return ResponseEntity.ok(savedComment);
     }
 

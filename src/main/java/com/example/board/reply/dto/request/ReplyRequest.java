@@ -5,10 +5,11 @@ import com.example.board.reply.entity.Reply;
 
 public record ReplyRequest(String replyContent) {
 
-    public Reply toEntity(Comment comment) {
+    public Reply toEntity(Comment comment, String nickname) {
         return Reply.builder()
                 .replyContent(replyContent)
                 .comment(comment)
+                .nickname(nickname)
                 .build();
     }
 

@@ -17,8 +17,9 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
 
     public ReplyResponse saveReply(Long commentId,
-                                   ReplyRequest replyRequest) {
-        Reply reply = replyRequest.toEntity(findByCommentId(commentId));
+                                   ReplyRequest replyRequest,
+                                   String nickname) {
+        Reply reply = replyRequest.toEntity(findByCommentId(commentId),nickname);
         replyRepository.save(reply);
         return ReplyResponse.fromEntity(reply);
     }

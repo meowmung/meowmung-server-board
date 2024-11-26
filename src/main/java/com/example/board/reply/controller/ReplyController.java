@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +21,10 @@ public class ReplyController {
 
     @PostMapping
     public ResponseEntity<ReplyResponse> addReply(@PathVariable(name = "commentId") Long commentId,
-                                                         @RequestBody ReplyRequest replyRequest) {
-        ReplyResponse savedReply = replyService.saveReply(commentId, replyRequest);
+                                                  @PathVariable(name = "postId") Long postId,
+                                                  @RequestBody ReplyRequest replyRequest,
+                                                  @RequestHeader("X-Authorization-nickname") String nickname) {
+        ReplyResponse savedReply = replyService.saveReply(commentId, replyRequest, nickname);
         return ResponseEntity.ok(savedReply);
     }
 
