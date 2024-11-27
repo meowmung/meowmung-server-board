@@ -16,9 +16,11 @@ public class BoardInitializer {
         // bordCategory 값이 존재하지 않으면 삽입
         if (boardRepository.findById("free").isEmpty()) {
             Board free = Board.builder().boardCategory("free").build();
+            boardRepository.save(free);
         }
         if (boardRepository.findById("qna").isEmpty()) {
             Board qna = Board.builder().boardCategory("qna").build();
+            boardRepository.save(qna);
         }
     }
 }

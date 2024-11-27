@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,14 +19,15 @@ public class BoardService {
     private final PostRepository postRepository;
     private final BoardRepository boardRepository;
 
-    public List<BoardResponse> findAllByBoardCategory(String boardCategory) {
-        Board board = boardRepository.findById(boardCategory)
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
-        List<Optional<Post>> allByBoard = postRepository.findAllByBoard(board);
-        return Collections.singletonList(BoardResponse.fromEntity(boardCategory, allByBoard));
-    }
-//
-//    public Page<Post> getPostsByPage(String boardCategory, int page) {
-//
+//    public List<BoardResponse> findAllByBoardCategory(String boardCategory) {
+//        Board board = boardRepository.findById(boardCategory)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 존재하지 않습니다."));
+//        List<Optional<Post>> allByBoard = postRepository.findAllByBoard(board);
+//        return Collections.singletonList(BoardResponse.fromEntity(boardCategory, allByBoard));
 //    }
+
+    public BoardResponse getPostsByPage(String boardCategory, Pageable pageable) {
+        Page<Post> byCategory = postRepository.findByCategory(boardCategory, pageable);
+        return BoardResponse.fromEntity(boardCategory, byCategory);
+    }
 }
