@@ -2,7 +2,7 @@ package com.example.board.post.dto.request;
 
 import com.example.board.comment.dto.request.CommentOneRequest;
 import com.example.board.post.entity.Post;
-import jakarta.persistence.Column;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +16,11 @@ public record PostOneRequest(
         List<CommentOneRequest> comments
 ) {
     public static PostOneRequest fromEntity(Post post) {
-        List<CommentOneRequest> commentOneRequests = CommentOneRequest.fromEntity(post.getComments());
+        List<CommentOneRequest> commentOneRequests = new ArrayList<>();
 
+        if (post.getComments() != null) {
+            commentOneRequests = CommentOneRequest.fromEntity(post.getComments());
+        }
         return new PostOneRequest(
                 post.postId,
                 post.title,
