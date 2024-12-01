@@ -62,6 +62,9 @@ public class Post {
     @Column(name = "post_complain_count")
     public Integer postComplainCount;
 
+    @Column(name = "memberId", unique = true, nullable = false)
+    private Long memberId;
+
 
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)

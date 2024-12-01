@@ -26,14 +26,14 @@ public class PostController {
     private final PostService postService;
 
     // 현재 사용자 정체
-    @GetMapping("/hi")
-    public void hi(@PathVariable(name = "boardCategory") String boardCategory,
-                   @RequestHeader("X-Authorization-email") String email,
-                   @RequestHeader("X-Authorization-nickname") String nickname) {
-        System.out.println(boardCategory);
-        System.out.println(email);
-        System.out.println(nickname);
-    }
+//    @GetMapping("/hi")
+//    public void hi(@PathVariable(name = "boardCategory") String boardCategory,
+//                   @RequestHeader("X-Authorization-email") String email,
+//                   @RequestHeader("X-Authorization-nickname") String nickname) {
+//        System.out.println(boardCategory);
+//        System.out.println(email);
+//        System.out.println(nickname);
+//    }
 
     // 게시글 조회
     @GetMapping("/{postId}")
@@ -45,8 +45,9 @@ public class PostController {
     @PostMapping
     public PostOneRequest addPost(@PathVariable(name = "boardCategory") String boardCategory,
                                   @RequestBody PostRequest postRequest,
-                                  @RequestHeader("X-Authorization-nickname") String nickname) {
-        return postService.savePost(boardCategory, postRequest, nickname);
+                                  @RequestHeader("X-Authorization-nickname") String nickname,
+                                  @RequestHeader("X-Authorization-memberId") Long memberId) {
+        return postService.savePost(boardCategory, postRequest, nickname, memberId);
     }
 
     @DeleteMapping("/{postId}")

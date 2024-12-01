@@ -44,6 +44,9 @@ public class Comment {
     @Column(name = "member_nickname")
     public String nickname;
 
+    @Column(name = "member_id", nullable = false, unique = true)
+    private Long memberId;
+
     @Column(name = "created_at")
     @CreationTimestamp
     public Date createdAt;

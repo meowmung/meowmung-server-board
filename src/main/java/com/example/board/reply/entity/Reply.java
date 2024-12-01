@@ -41,6 +41,9 @@ public class Reply {
     @Column(name = "member_nickname")
     public String nickname;
 
+    @Column(name = "member_id", unique = true, nullable = false)
+    private Long memberId;
+
     @Column(name = "reply_content", nullable = false)
     public String replyContent;
 

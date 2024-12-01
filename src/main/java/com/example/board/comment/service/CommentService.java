@@ -16,10 +16,10 @@ public class CommentService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
-    public CommentResponse saveComment(Long postId, CommentRequest commentRequest, String nickname) {
-        Comment comment = commentRequest.toEntity(findByPostId(postId), nickname);
-        commentRepository.save(comment);
-        return CommentResponse.fromEntity(comment);
+    public CommentResponse saveComment(Long postId, CommentRequest commentRequest, String nickname, Long memberId) {
+        Comment comment = commentRequest.toEntity(findByPostId(postId), nickname, memberId);
+        Comment save = commentRepository.save(comment);
+        return CommentResponse.fromEntity(save);
     }
 
     public Post findByPostId(Long postId) {

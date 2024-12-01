@@ -7,12 +7,13 @@ public record PostRequest(
         String title,
         String content
 ) {
-    public Post toEntity(Board board, String nickname) {
+    public Post toEntity(Board board, String nickname, Long memberId) {
         return Post.builder()
                 .board(board)
                 .title(title)
                 .content(content)
                 .nickname(nickname)
+                .memberId(memberId)
                 .build();
     }
 }

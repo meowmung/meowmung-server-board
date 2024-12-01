@@ -20,10 +20,10 @@ public class PostService {
     private final BoardRepository boardRepository;
 
     // 게시글 저장
-    public PostOneRequest savePost(String boardCategory, PostRequest postRequest, String nickname) {
+    public PostOneRequest savePost(String boardCategory, PostRequest postRequest, String nickname, Long memberId) {
         Board board = boardRepository.findById(boardCategory)
-                .orElseThrow(()->new RuntimeException("그런 카테고리 없어요"));
-        Post post = postRequest.toEntity(board,nickname);
+                .orElseThrow(() -> new RuntimeException("그런 카테고리 없어요"));
+        Post post = postRequest.toEntity(board, nickname, memberId);
         Post save = postRepository.save(post);
         return PostOneRequest.fromEntity(save);
     }
@@ -32,7 +32,7 @@ public class PostService {
     public PostOneRequest getPost(Long postId) {
 //        Optional<Post> opt = postRepository.findByPostId(postId);
         Post post = postRepository.findById(postId)
-                .orElseThrow(()-> new IllegalArgumentException("없는 게시물 입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("없는 게시물 입니다."));
         this.incrementViewCount(post);
         return PostOneRequest.fromEntity(post);
     }

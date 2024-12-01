@@ -18,10 +18,10 @@ public class ReplyService {
 
     public ReplyResponse saveReply(Long commentId,
                                    ReplyRequest replyRequest,
-                                   String nickname) {
-        Reply reply = replyRequest.toEntity(findByCommentId(commentId),nickname);
-        replyRepository.save(reply);
-        return ReplyResponse.fromEntity(reply);
+                                   String nickname, Long memberId) {
+        Reply reply = replyRequest.toEntity(findByCommentId(commentId),nickname, memberId);
+        Reply save = replyRepository.save(reply);
+        return ReplyResponse.fromEntity(save);
     }
 
     public Comment findByCommentId(Long commentId) {
