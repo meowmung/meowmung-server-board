@@ -39,6 +39,8 @@ public class PostController {
                                   @RequestHeader("X-Authorization-email") String email,
                                   @RequestHeader("X-Authorization-nickname") String nickname,
                                   @RequestHeader("X-Authorization-memberId") Long memberId) {
+
+        nickname = URLDecoder.decode(nickname);
         return postService.savePost(boardCategory, postRequest, nickname, memberId);
     }
 
