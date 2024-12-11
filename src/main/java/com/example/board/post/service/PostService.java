@@ -45,12 +45,12 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    // 게시글 수정
-//    public Post updatePost(Long postId, PostEditRequest postEditRequest) {
-//        Post post = findByPostId(postId);
-//        post.update(postEditRequest.title(), postEditRequest.content());
-//        return postRepository.save(post);
-//    }
+//     게시글 수정
+    public Post updatePost(Long postId, PostEditRequest postEditRequest) {
+        Post post = postRepository.findByPostId(postId).orElseThrow(() -> new RuntimeException("해당 게시물은 존재하지 않습니다."));
+        post.update(postEditRequest.title(), postEditRequest.content());
+        return postRepository.save(post);
+    }
 
     // 조회수
     public void incrementViewCount(Post post) {
