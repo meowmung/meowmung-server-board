@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
 
 //    @GetMapping
 //    public ResponseEntity<List<BoardResponse>> boardList(
@@ -32,6 +31,7 @@ public class BoardController {
 //    }
 
     // 페이징
+    // pages?page
     @GetMapping("/pages")
     public BoardResponse getPage(@PathVariable(name = "boardCategory") String boardCategory,
                                  Pageable pageable) {

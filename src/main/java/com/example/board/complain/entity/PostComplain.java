@@ -35,6 +35,7 @@ public class PostComplain {
     public String postComplainContent;
 
     @Column(name = "post_complain_count")
+    @Builder.Default
     public int postComplainCount = 0;
 
     @Column(name = "created_at")

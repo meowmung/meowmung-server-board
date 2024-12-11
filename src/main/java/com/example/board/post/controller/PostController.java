@@ -45,8 +45,12 @@ public class PostController {
     @PostMapping
     public PostOneRequest addPost(@PathVariable(name = "boardCategory") String boardCategory,
                                   @RequestBody PostRequest postRequest,
+                                  @RequestHeader("X-Authorization-email") String email,
                                   @RequestHeader("X-Authorization-nickname") String nickname,
                                   @RequestHeader("X-Authorization-memberId") Long memberId) {
+        System.out.println(email);
+        System.out.println(nickname);
+        System.out.println(memberId);
         return postService.savePost(boardCategory, postRequest, nickname, memberId);
     }
 

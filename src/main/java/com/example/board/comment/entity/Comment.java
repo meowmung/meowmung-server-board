@@ -44,7 +44,7 @@ public class Comment {
     @Column(name = "member_nickname")
     public String nickname;
 
-    @Column(name = "member_id", nullable = false, unique = true)
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
     @Column(name = "created_at")
@@ -52,10 +52,12 @@ public class Comment {
     public Date createdAt;
 
     @Column(name = "comment_complain_count")
+    @Builder.Default
     public Integer commentComplainCount = 0;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
+    @Builder.Default
     public List<CommentComplain> commentComplains = new ArrayList<>();
 
     // 게시글과의 연관 관계
@@ -66,6 +68,7 @@ public class Comment {
     public Post post;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     public List<Reply> replies = new ArrayList<>();
 
     @PrePersist

@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.BindParam;
 
 @Entity
 @Table(name = "board")
@@ -27,5 +28,6 @@ public class Board {
     public String boardCategory;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     public List<Post> posts = new ArrayList<>();
 }

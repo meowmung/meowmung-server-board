@@ -24,7 +24,7 @@ public class ReplyController {
                                                   @PathVariable(name = "postId") Long postId,
                                                   @RequestBody ReplyRequest replyRequest,
                                                   @RequestHeader("X-Authorization-nickname") String nickname,
-                                                  @RequestHeader("X-Authorization-memeberId") Long memberId) {
+                                                  @RequestHeader("X-Authorization-memberId") Long memberId) {
         ReplyResponse savedReply = replyService.saveReply(commentId, replyRequest, nickname, memberId);
         return ResponseEntity.ok(savedReply);
     }

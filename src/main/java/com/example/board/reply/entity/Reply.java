@@ -41,7 +41,7 @@ public class Reply {
     @Column(name = "member_nickname")
     public String nickname;
 
-    @Column(name = "member_id", unique = true, nullable = false)
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
     @Column(name = "reply_content", nullable = false)
@@ -62,9 +62,11 @@ public class Reply {
 
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
+    @Builder.Default
     public List<ReplyComplain> replyComplains = new ArrayList<>();
 
     @Column(name = "reply_complain_count")
+    @Builder.Default
     public Integer replyComplainCount = 0;
 
     public void setReplyComplainCount(Integer replyComplainCount) {

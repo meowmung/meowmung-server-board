@@ -41,6 +41,7 @@ public class ReplyComplain {
     public Date createdAt;
 
     @Column(name = "reply_complain_count")
+    @Builder.Default
     public int replyComplainCount = 0;
 
 //    @ManyToOne

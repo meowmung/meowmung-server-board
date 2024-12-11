@@ -62,7 +62,7 @@ public class Post {
     @Column(name = "post_complain_count")
     public Integer postComplainCount;
 
-    @Column(name = "memberId", unique = true, nullable = false)
+    @Column(name = "memberId", nullable = false)
     private Long memberId;
 
 
@@ -73,10 +73,12 @@ public class Post {
     // 하나의 게시글은 여러개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
+    @Builder.Default
     public List<PostComplain> postComplains = new ArrayList<>();
 
     // 하나의 게시글은 여러개의 댓글을 가질 수 있다
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
     public List<Comment> comments = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -110,16 +112,18 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "board=" + board +
-                ", comments=" + comments +
-                ", postComplains=" + postComplains +
-                ", postComplainCount=" + postComplainCount +
-                ", viewCount=" + viewCount +
-                ", updatedAt=" + updatedAt +
-                ", createdAt=" + createdAt +
-                ", content='" + content + '\'' +
+                "postId=" + postId +
                 ", title='" + title + '\'' +
-                ", postId=" + postId +
+                ", content='" + content + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", viewCount=" + viewCount +
+                ", postComplainCount=" + postComplainCount +
+                ", memberId=" + memberId +
+                ", board=" + board +
+                ", postComplains=" + postComplains +
+                ", comments=" + comments +
                 '}';
     }
 }
