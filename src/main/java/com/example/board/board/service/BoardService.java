@@ -1,13 +1,8 @@
 package com.example.board.board.service;
 
 import com.example.board.board.dto.response.BoardResponse;
-import com.example.board.board.entity.Board;
-import com.example.board.board.repository.BoardRepository;
 import com.example.board.post.entity.Post;
 import com.example.board.post.repository.PostRepository;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +12,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BoardService {
     private final PostRepository postRepository;
-    private final BoardRepository boardRepository;
 
 //    public List<BoardResponse> findAllByBoardCategory(String boardCategory) {
 //        Board board = boardRepository.findById(boardCategory)
