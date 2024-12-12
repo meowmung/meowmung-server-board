@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public record PostOneRequest(
+public record PostOneResponse(
+        String boardCategory,
         Long postId,
         String title,
         String content,
@@ -15,13 +16,14 @@ public record PostOneRequest(
         Integer viewCount,
         List<CommentOneRequest> comments
 ) {
-    public static PostOneRequest fromEntity(Post post) {
+    public static PostOneResponse fromEntity(Post post) {
         List<CommentOneRequest> commentOneRequests = new ArrayList<>();
 
         if (post.getComments() != null) {
             commentOneRequests = CommentOneRequest.fromEntity(post.getComments());
         }
-        return new PostOneRequest(
+        return new PostOneResponse(
+                post.board.getBoardCategory(),
                 post.postId,
                 post.title,
                 post.content,

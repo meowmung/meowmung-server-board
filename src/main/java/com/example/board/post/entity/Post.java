@@ -62,14 +62,14 @@ public class Post {
     @Column(name = "post_complain_count")
     public Integer postComplainCount;
 
-    @Column(name = "memberId", nullable = false)
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
-
     @ManyToOne
-    @JoinColumn(name = "board_id", nullable = false)
+    @JoinColumn(name = "board_category", nullable = false)
     @JsonIgnore
     public Board board;
+
     // 하나의 게시글은 여러개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -84,7 +84,6 @@ public class Post {
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonIgnore
 //    public List<Reply> reply = new ArrayList<>();
-
 
     @PrePersist
     public void prePersist() {

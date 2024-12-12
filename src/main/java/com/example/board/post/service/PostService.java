@@ -3,12 +3,10 @@ package com.example.board.post.service;
 import com.example.board.board.entity.Board;
 import com.example.board.board.repository.BoardRepository;
 import com.example.board.post.dto.request.PostEditRequest;
-import com.example.board.post.dto.request.PostOneRequest;
+import com.example.board.post.dto.request.PostOneResponse;
 import com.example.board.post.dto.request.PostRequest;
-import com.example.board.post.dto.response.PostResponse;
 import com.example.board.post.entity.Post;
 import com.example.board.post.repository.PostRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,21 +18,21 @@ public class PostService {
     private final BoardRepository boardRepository;
 
     // 게시글 저장
-    public PostOneRequest savePost(String boardCategory, PostRequest postRequest, String nickname, Long memberId) {
+    public PostOneResponse savePost(String boardCategory, PostRequest postRequest, String nickname, Long memberId) {
         Board board = boardRepository.findById(boardCategory)
                 .orElseThrow(() -> new RuntimeException("그런 카테고리 없어요"));
         Post post = postRequest.toEntity(board, nickname, memberId);
         Post save = postRepository.save(post);
-        return PostOneRequest.fromEntity(save);
+        return PostOneResponse.fromEntity(save);
     }
 
     // postId 로 게시글 찾기
-    public PostOneRequest getPost(Long postId) {
+    public PostOneResponse getPost(Long postId) {
 //        Optional<Post> opt = postRepository.findByPostId(postId);
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 게시물 입니다."));
         this.incrementViewCount(post);
-        return PostOneRequest.fromEntity(post);
+        return PostOneResponse.fromEntity(post);
     }
 
     // 게시글 삭제

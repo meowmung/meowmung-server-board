@@ -1,7 +1,7 @@
 package com.example.board.post.controller;
 
 import com.example.board.post.dto.request.PostEditRequest;
-import com.example.board.post.dto.request.PostOneRequest;
+import com.example.board.post.dto.request.PostOneResponse;
 import com.example.board.post.dto.request.PostRequest;
 import com.example.board.post.entity.Post;
 import com.example.board.post.service.PostService;
@@ -26,17 +26,17 @@ public class PostController {
 
     // 게시글 조회
     @GetMapping("/{postId}")
-    public PostOneRequest getPost(@PathVariable(name = "postId") Long postId) {
+    public PostOneResponse getPost(@PathVariable(name = "postId") Long postId) {
         return postService.getPost(postId);
     }
 
     // 게시글 생성
     @PostMapping
-    public PostOneRequest addPost(@PathVariable(name = "boardCategory") String boardCategory,
-                                  @RequestBody PostRequest postRequest,
-                                  @RequestHeader("X-Authorization-email") String email,
-                                  @RequestHeader("X-Authorization-nickname") String nickname,
-                                  @RequestHeader("X-Authorization-memberId") Long memberId) {
+    public PostOneResponse addPost(@PathVariable(name = "boardCategory") String boardCategory,
+                                   @RequestBody PostRequest postRequest,
+                                   @RequestHeader("X-Authorization-email") String email,
+                                   @RequestHeader("X-Authorization-nickname") String nickname,
+                                   @RequestHeader("X-Authorization-memberId") Long memberId) {
 
         nickname = URLDecoder.decode(nickname);
         return postService.savePost(boardCategory, postRequest, nickname, memberId);
