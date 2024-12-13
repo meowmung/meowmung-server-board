@@ -25,12 +25,20 @@ public class PostComplainController {
         3. 신고 횟수 +1
         4. 신고 횟수가 5가 되면 게시글을 삭제
     */
+//
+
+//    // 게시글 신고 생성
+//    @PostMapping("/complain")
+//    public ResponseEntity<PostComplainResponse> addPostComplain(@PathVariable(name = "postId") Long postId,
+//                                                                @RequestBody PostComplainRequest postComplainRequest) {
+//        PostComplainResponse savedPostComplain = postComplainService.savePostComplain(postId, postComplainRequest);
+//        return ResponseEntity.ok(savedPostComplain);
+//    }
 
     // 게시글 신고 생성
     @PostMapping("/complain")
-    public ResponseEntity<PostComplainResponse> addPostComplain(@PathVariable(name = "postId") Long postId,
-                                                            @RequestBody PostComplainRequest postComplainRequest) {
-        PostComplainResponse savedPostComplain = postComplainService.savePostComplain(postId, postComplainRequest);
+    public ResponseEntity<PostComplainResponse> addPostComplain(@PathVariable(name = "postId") Long postId) {
+        PostComplainResponse savedPostComplain = postComplainService.savePostComplain(postId);
         return ResponseEntity.ok(savedPostComplain);
     }
 

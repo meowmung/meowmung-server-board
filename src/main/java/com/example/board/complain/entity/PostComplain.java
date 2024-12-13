@@ -31,8 +31,8 @@ public class PostComplain {
 
 //    public Member reporter;
 
-    @Column(name = "post_complain_content", nullable = false)
-    public String postComplainContent;
+//    @Column(name = "post_complain_content", nullable = false)
+//    public String postComplainContent;
 
     @Column(name = "post_complain_count")
     @Builder.Default
