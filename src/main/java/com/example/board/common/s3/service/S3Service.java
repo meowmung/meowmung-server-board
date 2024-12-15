@@ -1,4 +1,4 @@
-package com.example.board.s3.service;
+package com.example.board.common.s3.service;
 
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class S3Service {
         presigned URL 발급
     */
     public String createPresignedUrl(String path) {
-        // 올릴 bucket 명, 경로설정
+        // 올릴 bucket 명, 경로 설정
         var putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucket)
                 .key(path)
