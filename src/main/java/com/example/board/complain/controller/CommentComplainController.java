@@ -20,10 +20,17 @@ public class CommentComplainController {
     private final CommentComplainService commentComplainService;
 
     // 댓글 신고 생성
+//    @PostMapping("/complain")
+//    public ResponseEntity<CommentComplainResponse> addCommentComplain(@PathVariable(name = "commentId") Long commentId,
+//                                                               @RequestBody CommentComplainRequest commentComplainRequest) {
+//        CommentComplainResponse savedCommentComplain = commentComplainService.saveCommentComplain(commentId, commentComplainRequest);
+//        return ResponseEntity.ok(savedCommentComplain);
+//    }
+
+    // 댓글 신고 생성
     @PostMapping("/complain")
-    public ResponseEntity<CommentComplainResponse> addCommentComplain(@PathVariable(name = "commentId") Long commentId,
-                                                               @RequestBody CommentComplainRequest commentComplainRequest) {
-        CommentComplainResponse savedCommentComplain = commentComplainService.saveCommentComplain(commentId, commentComplainRequest);
+    public ResponseEntity<CommentComplainResponse> addCommentComplain(@PathVariable(name = "commentId") Long commentId) {
+        CommentComplainResponse savedCommentComplain = commentComplainService.saveCommentComplain(commentId);
         return ResponseEntity.ok(savedCommentComplain);
     }
 

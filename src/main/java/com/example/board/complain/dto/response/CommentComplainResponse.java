@@ -5,8 +5,9 @@ import java.util.Date;
 
 public record CommentComplainResponse(
         Long commentComplainId,
-        String commentComplainContent,
+//        String commentComplainContent,
         Date createdAt,
+        int commentComplainCount,
 
         // 신고한 댓글
         Long commentId,
@@ -20,8 +21,9 @@ public record CommentComplainResponse(
     public static CommentComplainResponse fromEntity(CommentComplain commentComplain) {
         return new CommentComplainResponse(
                 commentComplain.getCommentComplainId(),
-                commentComplain.getCommentComplainContent(),
+//                commentComplain.getCommentComplainContent(),
                 commentComplain.getCreatedAt(),
+                commentComplain.getComment().getCommentComplainCount(),
 
                 commentComplain.getComment().getCommentId(),
                 commentComplain.getComment().getCommentContent(),

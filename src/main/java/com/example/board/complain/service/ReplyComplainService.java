@@ -30,7 +30,7 @@ public class ReplyComplainService {
     }
 
     public Reply findByReplyId(Long replyId) {
-        return replyRepository.findByReplyId(replyId)
+        return replyRepository.findById(replyId)
                 .orElseThrow(() -> new IllegalArgumentException("Comment not found with id: " + replyId));
     }
 

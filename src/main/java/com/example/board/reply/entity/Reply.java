@@ -1,9 +1,7 @@
 package com.example.board.reply.entity;
 
 import com.example.board.comment.entity.Comment;
-import com.example.board.complain.entity.CommentComplain;
 import com.example.board.complain.entity.ReplyComplain;
-import com.example.board.post.entity.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -55,10 +53,6 @@ public class Reply {
     @JoinColumn(name = "comment_id", nullable = false)
     @JsonIgnore
     public Comment comment;
-
-//    @ManyToOne
-//    @JsonIgnore
-//    public Post post;
 
     @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

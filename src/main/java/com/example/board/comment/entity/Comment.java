@@ -1,7 +1,6 @@
 package com.example.board.comment.entity;
 
 import com.example.board.complain.entity.CommentComplain;
-import com.example.board.complain.entity.PostComplain;
 import com.example.board.reply.entity.Reply;
 import com.example.board.post.entity.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;

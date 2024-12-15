@@ -20,8 +20,8 @@ public class CommentComplainService {
     private final CommentService commentService;
 
    // 댓글 신고 저장
-    public CommentComplainResponse saveCommentComplain(Long commentId, CommentComplainRequest commentComplainRequest) {
-        CommentComplain commentComplain = commentComplainRequest.toEntity(findByCommentId(commentId));
+    public CommentComplainResponse saveCommentComplain(Long commentId) {
+        CommentComplain commentComplain = CommentComplainRequest.toEntity(findByCommentId(commentId));
         commentComplainRepository.save(commentComplain);
 //        incrementComplainCount(commentId);
         incrementCommentComplainCount(commentId);

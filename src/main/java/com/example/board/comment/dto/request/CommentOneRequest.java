@@ -6,14 +6,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record CommentOneRequest (
+public record CommentOneRequest(
         Long commentId,
         String commentContent,
         String nickname,
         Date createdAt,
         List<ReplyOneRequest> requests
 ) {
-    public static List<CommentOneRequest> fromEntity (List<Comment> comments) {
+    public static List<CommentOneRequest> fromEntity(List<Comment> comments) {
         return comments.stream()
                 .map(comment -> new CommentOneRequest(
                         comment.getCommentId(), // Comment 엔티티의 ID

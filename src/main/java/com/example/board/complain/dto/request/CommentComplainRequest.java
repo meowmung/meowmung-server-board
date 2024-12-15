@@ -4,11 +4,11 @@ import com.example.board.comment.entity.Comment;
 import com.example.board.complain.entity.CommentComplain;
 
 public record CommentComplainRequest (
-        String commentComplainContent
+        Long commentComplainId
 ) {
-    public CommentComplain toEntity (Comment comment){
+    public static CommentComplain toEntity(Comment comment){
         return CommentComplain.builder()
-                .commentComplainContent(commentComplainContent)
+//                .commentComplainContent(commentComplainContent)
                 .comment(comment)
                 .build();
     }

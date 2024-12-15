@@ -46,16 +46,15 @@ public class PostController {
     @DeleteMapping("/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable(name = "postId") Long postId) {
         if (postId == null) {
-            return ResponseEntity.badRequest().body("postId가 유효하지 않습니다.");
+            return ResponseEntity.badRequest().body("postId가 유효 하지 않습니다.");
         }
-
         postService.deletePost(postId);
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 
     // 게시글 수정
-    @PutMapping("/{postid}")
-    public ResponseEntity<Post> updatePost(@PathVariable(name = "postid") Long postId,
+    @PutMapping("/{postId}")
+    public ResponseEntity<Post> updatePost(@PathVariable(name = "postId") Long postId,
                                            @RequestBody PostEditRequest postEditRequest) {
 
         Post updatedPost = postService.updatePost(postId, postEditRequest);
