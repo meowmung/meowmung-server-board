@@ -59,7 +59,7 @@ public class PostService {
     public PostOneResponse getPost(Long postId) {
 //        Optional<Post> opt = postRepository.findByPostId(postId);
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 게시물 입니다."));
         this.incrementViewCount(post);
         return PostOneResponse.fromEntity(post);
     }
