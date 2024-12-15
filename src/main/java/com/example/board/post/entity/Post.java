@@ -2,8 +2,8 @@ package com.example.board.post.entity;
 
 import com.example.board.board.entity.Board;
 import com.example.board.comment.entity.Comment;
+import com.example.board.common.s3.entity.Image;
 import com.example.board.complain.entity.PostComplain;
-import com.example.board.reply.entity.Reply;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -62,29 +62,33 @@ public class Post {
     @Column(name = "post_complain_count")
     public Integer postComplainCount;
 
-    @Column(name = "memberId", nullable = false)
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
-
     @ManyToOne
-    @JoinColumn(name = "board_id", nullable = false)
+    @JoinColumn(name = "board_category", nullable = false)
     @JsonIgnore
     public Board board;
-    // 하나의 게시글은 여러개의 신고를 가질 수 있다.
+
+    // 하나의 게시글은 여러 개의 신고를 가질 수 있다.
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     @Builder.Default
     public List<PostComplain> postComplains = new ArrayList<>();
 
-    // 하나의 게시글은 여러개의 댓글을 가질 수 있다
+    // 하나의 게시글은 여러 개의 댓글을 가질 수 있다
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     public List<Comment> comments = new ArrayList<>();
 
+    // 하나의 게시글은 여러 개의 이미지
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    public List<Image> images = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonIgnore
 //    public List<Reply> reply = new ArrayList<>();
-
 
     @PrePersist
     public void prePersist() {
@@ -99,6 +103,10 @@ public class Post {
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void addImages(List<Image> images) {
+        this.images = images;
     }
 
     public void setViewCount(Integer viewCount) {

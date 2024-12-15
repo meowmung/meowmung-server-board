@@ -19,11 +19,20 @@ public class PostComplainService {
     private final PostRepository postRepository;
     private final PostService postService;
 
+//    // 게시글 신고 생성
+//    public PostComplainResponse savePostComplain(Long postId, PostComplainRequest postComplainRequest) {
+//        PostComplain postComplain = postComplainRequest.toEntity(findByPostId(postId));
+//        postComplainRepository.save(postComplain);
+////        incrementComplainCount(postComplain);
+//        incrementPostComplainCount(postId);
+//        postService.checkAndDeletePost(postId);
+//        return PostComplainResponse.fromEntity(postComplain);
+//    }
+
     // 게시글 신고 생성
-    public PostComplainResponse savePostComplain(Long postId, PostComplainRequest postComplainRequest) {
-        PostComplain postComplain = postComplainRequest.toEntity(findByPostId(postId));
+    public PostComplainResponse savePostComplain(Long postId) {
+        PostComplain postComplain = PostComplainRequest.toEntity(findByPostId(postId));
         postComplainRepository.save(postComplain);
-//        incrementComplainCount(postComplain);
         incrementPostComplainCount(postId);
         postService.checkAndDeletePost(postId);
         return PostComplainResponse.fromEntity(postComplain);

@@ -3,6 +3,7 @@ package com.example.board.reply.controller;
 import com.example.board.reply.dto.request.ReplyRequest;
 import com.example.board.reply.dto.response.ReplyResponse;
 import com.example.board.reply.service.ReplyService;
+import java.net.URLDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,8 @@ public class ReplyController {
                                                   @RequestBody ReplyRequest replyRequest,
                                                   @RequestHeader("X-Authorization-nickname") String nickname,
                                                   @RequestHeader("X-Authorization-memberId") Long memberId) {
+
+        nickname = URLDecoder.decode(nickname);
         ReplyResponse savedReply = replyService.saveReply(commentId, replyRequest, nickname, memberId);
         return ResponseEntity.ok(savedReply);
     }

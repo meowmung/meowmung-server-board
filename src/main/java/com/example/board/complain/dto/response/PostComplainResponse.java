@@ -5,8 +5,9 @@ import java.util.Date;
 
 public record PostComplainResponse(
         Long postComplainId,
-        String postComplainContent,
+//        String postComplainContent,
         Date createdAt,
+        int complainCount,
         Long postId,
         String title,
         String content
@@ -14,8 +15,10 @@ public record PostComplainResponse(
     public static PostComplainResponse fromEntity(PostComplain postComplain) {
         return new PostComplainResponse(
                 postComplain.getPostComplainId(),
-                postComplain.getPostComplainContent(),
+//                postComplain.getPostComplainContent(),
                 postComplain.getCreatedAt(),
+                postComplain.getPost().getPostComplainCount(),
+
                 postComplain.getPost().getPostId(),
                 postComplain.getPost().getTitle(),
                 postComplain.getPost().getContent()
