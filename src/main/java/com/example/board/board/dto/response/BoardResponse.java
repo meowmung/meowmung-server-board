@@ -7,7 +7,8 @@ import org.springframework.data.domain.Page;
 
 public record BoardResponse(
         String boardCategory,
-        List<PostResponse> postResponses
+        List<PostResponse> postResponses,
+        int totalPages
 ) {
     public static BoardResponse fromEntity(String boardCategory, Page<Post> byCategory) {
         // Page<Post> 데이터를 List<PostResponse>로 변환
@@ -18,7 +19,8 @@ public record BoardResponse(
         // BoardResponse 반환
         return new BoardResponse(
                 boardCategory,
-                postResponses
+                postResponses,
+                byCategory.getTotalPages()
         );
     }
 

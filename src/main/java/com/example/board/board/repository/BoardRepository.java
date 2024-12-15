@@ -11,5 +11,4 @@
         Page<Post> findPageBy(Pageable pageable);
         Optional<Board> findAllByBoardCategory(String boardCategory);
         Optional<Board> findByBoardCategory(String boardCategory);
-
     }
