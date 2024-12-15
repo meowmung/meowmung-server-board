@@ -1,4 +1,4 @@
-package com.example.admin.config;
+package com.example.board.common.s3.config;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
