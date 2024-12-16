@@ -11,7 +11,7 @@ public record CommentOneRequest(
         String commentContent,
         String nickname,
         Date createdAt,
-        List<ReplyOneRequest> requests
+        List<ReplyOneRequest> replies
 ) {
     public static List<CommentOneRequest> fromEntity(List<Comment> comments) {
         return comments.stream()

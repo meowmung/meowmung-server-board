@@ -44,12 +44,12 @@ public class PostController {
 
     // 게시글 삭제
     @DeleteMapping("/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable(name = "postId") Long postId) {
+    public ResponseEntity<?> deletePost(@PathVariable(name = "postId") Long postId,
+                                             @RequestHeader("X-Authorization-memberId") Long memberId) {
         if (postId == null) {
             return ResponseEntity.badRequest().body("postId가 유효 하지 않습니다.");
         }
-        postService.deletePost(postId);
-        return ResponseEntity.ok("게시글이 삭제되었습니다.");
+        return postService.deletePost(postId, memberId);
     }
 
     // 게시글 수정

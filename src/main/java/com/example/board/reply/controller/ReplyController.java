@@ -33,8 +33,8 @@ public class ReplyController {
     }
 
     @DeleteMapping("/{replyId}")
-    public ResponseEntity<String> deleteReply(@PathVariable(name = "replyId") Long replyId) {
-        replyService.deleteReply(replyId);
-        return ResponseEntity.ok("대댓글이 삭제되었습니다.");
+    public ResponseEntity<?> deleteReply(@PathVariable(name = "replyId") Long replyId,
+                                              @RequestHeader("X-Authorization-memberId") Long memberId) {
+        return replyService.deleteReply(replyId, memberId);
     }
 }
