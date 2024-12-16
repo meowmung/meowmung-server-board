@@ -7,6 +7,8 @@ import com.example.board.reply.entity.Reply;
 import com.example.board.reply.repository.ReplyRepository;
 import com.example.board.comment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,10 +32,15 @@ public class ReplyService {
     }
 
     @Transactional
-    public void deleteReply(Long replyId) {
+    public ResponseEntity<?> deleteReply(Long replyId, Long memberId) {
         Reply reply = replyRepository.findById(replyId)
-                .orElseThrow(() -> new RuntimeException("해당 답글은 존재하지 않습니다."));
+                .orElseThrow(() -> new RuntimeException("해당 답글 존재하지 않습니다."));
+
+        if (!reply.getMemberId().equals(memberId)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("삭제 권한이 없습니다.");
+        }
         replyRepository.delete(reply);
+        return ResponseEntity.status(HttpStatus.OK).body("답글이 삭제되었습니다.");
     }
 
     // 신고 횟수 확인 하고 5가 되면 대댓글 삭제

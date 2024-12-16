@@ -34,13 +34,11 @@ public class CommentController {
 
     // 댓글 삭제
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable(name = "commentId") Long commentId) {
-
+    public ResponseEntity<?> deleteComment(@PathVariable(name = "commentId") Long commentId,
+                                                @RequestHeader("X-Authorization-memberId") Long memberId) {
         if (commentId == null) {
             return ResponseEntity.badRequest().body("commentId가 유효하지 않습니다.");
         }
-
-        commentService.deleteComment(commentId);
-        return ResponseEntity.ok("댓글이 삭제되었습니다.");
+        return commentService.deleteComment(commentId, memberId);
     }
 }

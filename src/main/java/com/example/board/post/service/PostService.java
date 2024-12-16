@@ -12,6 +12,8 @@ import com.example.board.post.repository.PostRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,10 +68,15 @@ public class PostService {
 
     // 게시글 삭제
     @Transactional
-    public void deletePost(Long postId) {
+    public ResponseEntity deletePost(Long postId, Long memberId) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new RuntimeException("해당 게시물은 존재하지 않습니다."));
+
+        if (!post.getMemberId().equals(memberId)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("삭제 권한이 없습니다.");
+        }
         postRepository.delete(post);
+        return ResponseEntity.status(HttpStatus.OK).body("게시글이 삭제되었습니다.");
     }
 
     // 게시글 수정
